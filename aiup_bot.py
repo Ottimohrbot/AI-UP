@@ -95,9 +95,8 @@ TEXTS = {
         ),
         "contact_title": (
             "📞 *Bog'lanish:*\n\n"
-            "👤 Menejer: @aiup_manager\n"
-            "📱 Telefon: +998 90 000 00 00\n"
-            "📧 Email: info@aiup.uz\n"
+            "👤 Menejer: @Ibr0kh1_M\n"
+            "📱 Telefon: +998 77 877 00 84\n"
             "🌐 Veb: aiup.uz\n\n"
             "⏰ Ish vaqti: 09:00 — 18:00"
         ),
@@ -146,9 +145,8 @@ TEXTS = {
         ),
         "contact_title": (
             "📞 *Контакты:*\n\n"
-            "👤 Менеджер: @aiup_manager\n"
-            "📱 Телефон: +998 90 000 00 00\n"
-            "📧 Email: info@aiup.uz\n"
+            "👤 Менеджер: @Ibr0kh1_M\n"
+            "📱 Телефон: +998 77 877 00 84\n"
             "🌐 Сайт: aiup.uz\n\n"
             "⏰ Рабочее время: 09:00 — 18:00"
         ),
@@ -197,9 +195,8 @@ TEXTS = {
         ),
         "contact_title": (
             "📞 *Contact us:*\n\n"
-            "👤 Manager: @aiup_manager\n"
-            "📱 Phone: +998 90 000 00 00\n"
-            "📧 Email: info@aiup.uz\n"
+            "👤 Manager: @Ibr0kh1_M\n"
+            "📱 Phone: +998 77 877 00 84\n"
             "🌐 Web: aiup.uz\n\n"
             "⏰ Working hours: 09:00 — 18:00"
         ),
@@ -251,26 +248,18 @@ def ask_gemini(uid, user_text):
 
     if lang == "ru":
         sys = (
-            "Ты умный бизнес-консультант компании AIUP. "
-            "AIUP предоставляет AI решения для бизнеса: Telegram боты (100$), AI агенты (150$), "
-            "системы посещаемости (75$), системы тестирования (75$). "
-            "Отвечай ТОЛЬКО по теме бизнеса и AI. На другие темы: 'Извините, я консультирую только по бизнес-вопросам'. "
+            "Ты умный AI ассистент. Отвечай на любые вопросы. "
             "Отвечай кратко, по-русски, с эмодзи."
         )
     elif lang == "en":
         sys = (
-            "You are a smart business consultant for AIUP company. "
-            "AIUP provides AI solutions: Telegram bots ($100), AI agents ($150), "
-            "attendance systems ($75), testing systems ($75). "
-            "Answer ONLY business and AI related questions. For others: 'Sorry, I only consult on business topics'. "
+            "You are a smart AI assistant. Answer any question. "
             "Reply briefly in English with emojis."
         )
     else:
         sys = (
-            "Sen AIUP kompaniyasining aqlli biznes maslahatchiisisan. "
-            "AIUP xizmatlari: Telegram bot (100$), AI agent (150$), keldi-ketdi tizimi (75$), test tizimi (75$). "
-            "FAQAT biznes va AI mavzularida javob ber. Boshqa savollarga: 'Kechirasiz, men faqat biznes masalalari bo'yicha maslahat beraman'. "
-            "Qisqa, o'zbek tilida, emoji bilan javob ber."
+            "Sen aqlli AI yordamchisisan. Har qanday savolga javob bera olasan. "
+            "O'zbek tilida qisqa, do'stona va emoji bilan javob ber."
         )
 
     prompt = sys + (f"\n\nOldingi suhbat:\n{hist_txt}" if hist_txt else "") + f"\n\nFoydalanuvchi: {user_text}\nAgent:"
