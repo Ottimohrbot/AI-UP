@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ottimo — Hisobot tizimi</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
+<style>
+:root{
+  --bg:#0a0a0f;--bg2:#111118;--bg3:#18181f;
+  --border:rgba(255,255,255,0.07);--border2:rgba(255,255,255,0.14);
+  --text:#f0eff8;--text2:rgba(240,239,248,0.55);--text3:rgba(240,239,248,0.28);
+  --accent:#7c6fff;--accent2:#a89eff;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{min-height:100vh;font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text)}
+
+/* SCREENS */
+.screen{display:none;min-height:100vh}
+.screen.active{display:flex;flex-direction:column}
+
+/* LOGIN */
+#s-login{align-items:center;justify-content:center;padding:2rem}
+.logo{font-family:'Syne',sans-serif;font-size:26px;font-weight:800;letter-spacing:-1px;margin-bottom:4px}
+.logo span{color:var(--accent2)}
+.logo-sub{font-size:13px;color:var(--text3);margin-bottom:2.5rem;text-align:center}
+.role-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;width:100%;max-width:420px}
+.role-btn{background:var(--bg2);border:0.5px solid var(--border);border-radius:14px;padding:1.25rem 0.75rem;cursor:pointer;text-align:center;transition:border-color .2s,transform .15s}
+.role-btn:hover{border-color:var(--border2);transform:translateY(-2px)}
+.role-btn .ico{width:42px;height:42px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;margin:0 auto 8px}
+.role-btn h3{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;margin-bottom:2px}
+.role-btn p{font-size:11px;color:var(--text3)}
+
+/* TOPBAR */
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:.875rem 1.25rem;background:var(--bg2);border-bottom:.5px solid var(--border);position:sticky;top:0;z-index:50}
+.tbar-l{display:flex;align-items:center;gap:10px}
+.tbar-logo{font-family:'Syne',sans-serif;font-size:17px;font-weight:800;letter-spacing:-.5px}
+.tbar-logo span{color:var(--accent2)}
+.rbadge{font-size:11px;font-weight:500;padding:3px 10px;border-radius:99px}
+.back-btn{background:none;border:.5px solid var(--border);border-radius:8px;padding:5px 12px;cursor:pointer;font-size:12px;color:var(--text2);display:inline-flex;align-items:center;gap:5px}
+.back-btn:hover{border-color:var(--border2);color:var(--text)}
+
+/* MAIN CONTENT */
+.main{flex:1;padding:1.5rem;max-width:640px;margin:0 auto;width:100%}
+.page-title{font-family:'Syne',sans-serif;font-size:20px;font-weight:700;letter-spacing:-.5px;margin-bottom:.25rem}
+.page-sub{font-size:13px;color:var(--text3);margin-bottom:1.5rem}
+
+/* CARD */
+.card{background:var(--bg2);border:.5px solid var(--border);border-radius:14px;padding:1.25rem;margin-bottom:1rem}
+.card-title{font-size:14px;font-weight:500;margin-bottom:1rem;display:flex;align-items:center;gap:8px}
+.card-title i{font-size:16px;color:var(--accent2)}
+
+/* STEPS NAV */
+.steps-nav{display:flex;gap:6px;margin-bottom:1.5rem}
+.step-dot{flex:1;height:4px;border-radius:2px;background:var(--border2);transition:background .3s}
+.step-dot.done{background:var(--accent)}
+.step-dot.active{background:var(--accent2)}
+
+/* DUTY LIST */
+.duty-item{display:flex;align-items:flex-start;gap:12px;padding:12px 0;border-bottom:.5px solid var(--border)}
+.duty-item:last-child{border-bottom:none}
+.chk{width:22px;height:22px;border-radius:6px;border:.5px solid var(--border2);cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .15s;margin-top:1px}
+.chk.done{background:#1D9E75;border-color:#1D9E75;color:#fff}
+.duty-body{flex:1}
+.duty-name{font-size:14px;color:var(--text);transition:color .2s}
+.duty-name.done{text-decoration:line-through;color:var(--text3)}
+.duty-time{font-size:11px;color:var(--text3);margin-top:2px}
+.badge{display:inline-block;font-size:11px;padding:2px 9px;border-radius:99px;margin-top:4px}
+.b-red{background:rgba(255,107,107,.15);color:#ff8080}
+.b-amber{background:rgba(245,166,35,.15);color:#f5a623}
+.b-green{background:rgba(45,212,160,.15);color:#2dd4a0}
+.b-blue{background:rgba(124,111,255,.15);color:#a89eff}
+
+/* PROGRESS */
+.prog-wrap{margin-bottom:1.25rem}
+.prog-top{display:flex;justify-content:space-between;font-size:12px;color:var(--text2);margin-bottom:6px}
+.prog-bar{height:8px;background:rgba(255,255,255,.07);border-radius:4px;overflow:hidden}
+.prog-fill{height:100%;border-radius:4px;background:var(--accent);transition:width .4s}
+
+/* FORM */
+.form-group{margin-bottom:1rem}
+.form-label{font-size:13px;color:var(--text2);margin-bottom:6px;display:block}
+.form-input, .form-select, .form-textarea{
+  width:100%;background:var(--bg3);border:.5px solid var(--border2);
+  color:var(--text);border-radius:10px;padding:10px 14px;font-size:14px;
+  font-family:'DM Sans',sans-serif;outline:none;transition:border-color .2s
+}
+.form-input:focus,.form-select:focus,.form-textarea:focus{border-color:var(--accent)}
+.form-select option{background:var(--bg2)}
+.form-textarea{resize:vertical;min-height:90px;line-height:1.6}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.rating-row{display:flex;gap:8px;margin-top:4px}
+.rating-btn{flex:1;background:var(--bg3);border:.5px solid var(--border2);color:var(--text2);border-radius:8px;padding:8px 4px;cursor:pointer;font-size:13px;text-align:center;transition:all .2s}
+.rating-btn.active{border-color:var(--accent);background:rgba(124,111,255,.15);color:var(--accent2)}
+
+/* BUTTONS */
+.btn-primary{background:var(--accent);border:none;color:#fff;border-radius:10px;padding:12px 24px;cursor:pointer;font-size:14px;font-family:'DM Sans',sans-serif;font-weight:500;display:inline-flex;align-items:center;gap:8px;transition:opacity .2s}
+.btn-primary:hover{opacity:.88}
+.btn-primary:disabled{opacity:.4;cursor:not-allowed}
+.btn-outline{background:none;border:.5px solid var(--border2);color:var(--text2);border-radius:10px;padding:12px 24px;cursor:pointer;font-size:14px;font-family:'DM Sans',sans-serif;display:inline-flex;align-items:center;gap:8px;transition:all .2s}
+.btn-outline:hover{border-color:var(--border);color:var(--text)}
+.btn-row{display:flex;gap:10px;justify-content:flex-end;margin-top:1.5rem}
+
+/* SUCCESS */
+.success-box{text-align:center;padding:2rem 1rem}
+.success-icon{width:72px;height:72px;border-radius:50%;background:rgba(45,212,160,.15);display:flex;align-items:center;justify-content:center;font-size:36px;color:#2dd4a0;margin:0 auto 1.25rem}
+.success-title{font-family:'Syne',sans-serif;font-size:22px;font-weight:700;letter-spacing:-.5px;margin-bottom:.5rem}
+.success-sub{font-size:14px;color:var(--text2);margin-bottom:1.5rem;line-height:1.6}
+.tg-box{background:rgba(124,111,255,.08);border:.5px solid rgba(124,111,255,.2);border-radius:12px;padding:1rem 1.25rem;text-align:left;margin-bottom:1.5rem}
+.tg-box-title{font-size:12px;color:var(--accent2);margin-bottom:.5rem;font-weight:500}
+.tg-msg{font-size:13px;color:var(--text2);line-height:1.7;white-space:pre-wrap;word-break:break-word}
+
+/* SUMMARY ITEM */
+.sum-item{display:flex;gap:10px;padding:8px 0;border-bottom:.5px solid var(--border)}
+.sum-item:last-child{border-bottom:none}
+.sum-label{font-size:12px;color:var(--text3);width:120px;flex-shrink:0;padding-top:1px}
+.sum-val{font-size:13px;color:var(--text);flex:1}
+
+@media(max-width:480px){
+  .role-grid{grid-template-columns:repeat(2,1fr)}
+  .form-row{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="s-login" class="screen active">
+  <div class="logo">Ottimo <span>Hisobot</span></div>
+  <div class="logo-sub">Kunlik hisobot topshirish tizimi</div>
+  <div class="role-grid">
+    <div class="role-btn" onclick="startFlow('hr')">
+      <div class="ico" style="background:rgba(124,111,255,.15);color:#a89eff"><i class="ti ti-users"></i></div>
+      <h3>HR</h3><p>Kadrlar bo'limi</p>
+    </div>
+    <div class="role-btn" onclick="startFlow('manager')">
+      <div class="ico" style="background:rgba(56,144,221,.15);color:#60a5fa"><i class="ti ti-chart-bar"></i></div>
+      <h3>Menejer</h3><p>Filial boshlig'i</p>
+    </div>
+    <div class="role-btn" onclick="startFlow('marketing')">
+      <div class="ico" style="background:rgba(245,166,35,.15);color:#f5a623"><i class="ti ti-speakerphone"></i></div>
+      <h3>Marketing</h3><p>SMM / Reklama</p>
+    </div>
+    <div class="role-btn" onclick="startFlow('cashier')">
+      <div class="ico" style="background:rgba(45,212,160,.15);color:#2dd4a0"><i class="ti ti-cash"></i></div>
+      <h3>Kassir</h3><p>Hisob-kitob</p>
+    </div>
+    <div class="role-btn" onclick="startFlow('barista')">
+      <div class="ico" style="background:rgba(255,107,107,.15);color:#ff8080"><i class="ti ti-coffee"></i></div>
+      <h3>Barista</h3><p>Kafe xodimi</p>
+    </div>
+    <div class="role-btn" onclick="startFlow('cleaner')">
+      <div class="ico" style="background:rgba(74,222,128,.15);color:#4ade80"><i class="ti ti-wind"></i></div>
+      <h3>Tozalovchi</h3><p>Xizmat ko'rsatish</p>
+    </div>
+  </div>
+</div>
+
+<!-- FLOW -->
+<div id="s-flow" class="screen">
+  <div class="topbar">
+    <div class="tbar-l">
+      <div class="tbar-logo">Ottimo <span>Hisobot</span></div>
+      <span class="rbadge" id="roleBadge"></span>
+    </div>
+    <button class="back-btn" onclick="goLogin()"><i class="ti ti-arrow-left"></i> Orqaga</button>
+  </div>
+  <div class="main">
+    <div class="steps-nav" id="stepsNav"></div>
+    <div id="flowContent"></div>
+  </div>
+</div>
+
+<script>
+const NOW = new Date();
+const DATE = `${NOW.getDate().toString().padStart(2,'0')}.${(NOW.getMonth()+1).toString().padStart(2,'0')}.${NOW.getFullYear()}`;
+const TIME = `${String(NOW.getHours()).padStart(2,'0')}:${String(NOW.getMinutes()).padStart(2,'0')}`;
+
+const ROLES_META = {
+  hr:       {label:'HR',          color:'rgba(124,111,255,.2)', tc:'#a89eff'},
+  manager:  {label:'Menejer',     color:'rgba(56,144,221,.2)',  tc:'#60a5fa'},
+  marketing:{label:'Marketing',   color:'rgba(245,166,35,.2)',  tc:'#f5a623'},
+  cashier:  {label:'Kassir',      color:'rgba(45,212,160,.2)',  tc:'#2dd4a0'},
+  barista:  {label:'Barista',     color:'rgba(255,107,107,.2)', tc:'#ff8080'},
+  cleaner:  {label:'Tozalovchi',  color:'rgba(74,222,128,.2)',  tc:'#4ade80'},
+};
+
+const DUTIES = {
+  hr:[
+    {n:'Davomat hisobotini tekshirish',t:'09:00',p:'b-red'},
+    {n:'Kech qolganlar ro\'yxatini yuborish',t:'09:30',p:'b-red'},
+    {n:'Yangi ariza ko\'rib chiqish',t:'10:00',p:'b-amber'},
+    {n:'Oylik jarima hisobotini yangilash',t:'11:00',p:'b-amber'},
+    {n:'Xodimlar bilan uchrashuv',t:'14:00',p:'b-blue'},
+    {n:'Kunlik yakunni menejergа yuborish',t:'18:30',p:'b-amber'},
+  ],
+  manager:[
+    {n:'Xodimlar briefingi',t:'09:00',p:'b-red'},
+    {n:'Savdo raqamlarini tekshirish',t:'09:30',p:'b-red'},
+    {n:'Yetkazib beruvchi bilan uchrashuv',t:'11:00',p:'b-amber'},
+    {n:'Haftalik xarajatlar hisoboti',t:'14:00',p:'b-amber'},
+    {n:'Filial audit',t:'15:30',p:'b-blue'},
+    {n:'Kunlik savdo yakunini yuborish',t:'19:00',p:'b-amber'},
+  ],
+  marketing:[
+    {n:'Instagram story joylashtirish',t:'09:00',p:'b-red'},
+    {n:'Telegram kanalga post',t:'11:00',p:'b-red'},
+    {n:'Reels video material yig\'ish',t:'13:00',p:'b-amber'},
+    {n:'Haftalik statistika tahlili',t:'15:00',p:'b-amber'},
+    {n:'Ertangi kontent rejasi',t:'17:00',p:'b-blue'},
+    {n:'Reklama byudjeti hisoboti',t:'18:00',p:'b-amber'},
+  ],
+  cashier:[
+    {n:'Kassani ochish va tekshirish',t:'09:00',p:'b-red'},
+    {n:'Ertalabki qoldiq hisobi',t:'09:15',p:'b-red'},
+    {n:'Inkassatsiyaga hujjat tayyorlash',t:'12:00',p:'b-amber'},
+    {n:'Chiqimlar jurnalini to\'ldirish',t:'15:00',p:'b-amber'},
+    {n:'Kechki kassa yakunlash',t:'20:00',p:'b-amber'},
+    {n:'Kunlik hisobotni yuborish',t:'20:30',p:'b-amber'},
+  ],
+  barista:[
+    {n:'Jihozlarni tozalash va yoqish',t:'08:45',p:'b-red'},
+    {n:'Ingredientlar miqdorini tekshirish',t:'09:00',p:'b-red'},
+    {n:'Vitrinani bezash',t:'09:30',p:'b-amber'},
+    {n:'Tushlik uchun stokni to\'ldirish',t:'11:30',p:'b-amber'},
+    {n:'Jihozlarni kechki tozalash',t:'17:30',p:'b-blue'},
+    {n:'Smena yakunlash hisoboti',t:'18:00',p:'b-amber'},
+  ],
+  cleaner:[
+    {n:'Kirish hallni tozalash',t:'08:00',p:'b-red'},
+    {n:'1-qavat: zallar va yo\'laklar',t:'08:30',p:'b-red'},
+    {n:'2-qavat: ofislar va hammomlar',t:'10:00',p:'b-amber'},
+    {n:'3-qavat: xonalar',t:'12:00',p:'b-amber'},
+    {n:'Kimyoviy vositalar tekshirish',t:'14:00',p:'b-blue'},
+    {n:'Kechki umumiy tozalash',t:'17:00',p:'b-amber'},
+  ],
+};
+
+const EXTRA_FIELDS = {
+  hr:[
+    {id:'total_staff',label:'Bugun nechta xodim keldi?',type:'number',ph:'Masalan: 21'},
+    {id:'late_count', label:'Kech qolganlar soni',type:'number',ph:'0'},
+    {id:'absent',     label:'Kelmagan xodimlar ismi',type:'text',ph:'Masalan: Jasur M.'},
+    {id:'notes',      label:'Qo\'shimcha izoh',type:'textarea',ph:'Muammo, taklif yoki eslatma...'},
+  ],
+  manager:[
+    {id:'sales',  label:'Bugungi savdo (so\'m)',type:'number',ph:'Masalan: 2400000'},
+    {id:'clients',label:'Mijozlar soni',type:'number',ph:'Masalan: 87'},
+    {id:'issues', label:'Kun davomidagi muammolar',type:'textarea',ph:'Yuzaga kelgan muammo yoki taklif...'},
+    {id:'notes',  label:'Qo\'shimcha izoh',type:'textarea',ph:'...'},
+  ],
+  marketing:[
+    {id:'posts',   label:'Bugun nechta post joylashtirildi?',type:'number',ph:'Masalan: 3'},
+    {id:'reach',   label:'Umumiy reach (taxminan)',type:'number',ph:'Masalan: 1500'},
+    {id:'content', label:'Ertangi post mavzusi',type:'text',ph:'Masalan: Yangi menyu taqdimoti'},
+    {id:'notes',   label:'Qo\'shimcha izoh',type:'textarea',ph:'...'},
+  ],
+  cashier:[
+    {id:'total',   label:'Kunlik kassa jami (so\'m)',type:'number',ph:'Masalan: 1800000'},
+    {id:'cash',    label:'Naqd pul (so\'m)',type:'number',ph:'Masalan: 1100000'},
+    {id:'card',    label:'Karta orqali (so\'m)',type:'number',ph:'Masalan: 700000'},
+    {id:'notes',   label:'Muammo yoki izoh',type:'textarea',ph:'Qaytarma, noto\'g\'ri tranzaksiya...'},
+  ],
+  barista:[
+    {id:'orders',  label:'Bugungi buyurtmalar soni',type:'number',ph:'Masalan: 45'},
+    {id:'top',     label:'Eng ko\'p buyurtma qilingan ichimlik',type:'text',ph:'Masalan: Latte'},
+    {id:'stock',   label:'Tugab qolgan mahsulot bormi?',type:'text',ph:'Masalan: Oat suti tugadi'},
+    {id:'notes',   label:'Qo\'shimcha izoh',type:'textarea',ph:'...'},
+  ],
+  cleaner:[
+    {id:'rooms',   label:'Nechta xona tozalandi?',type:'number',ph:'Masalan: 12'},
+    {id:'issues',  label:'Muammo yoki ta\'mirlash kerak joy',type:'text',ph:'Masalan: 3-qavat 5-xona krani oqyapti'},
+    {id:'supply',  label:'Tugab qolgan vositalar',type:'text',ph:'Masalan: Domestos tugadi'},
+    {id:'notes',   label:'Qo\'shimcha izoh',type:'textarea',ph:'...'},
+  ],
+};
+
+let role = null;
+let step = 0; // 0=kelish, 1=vazifalar, 2=hisobot, 3=yuborish
+let arrived = false;
+let arriveTime = '';
+let dutyStates = {};
+let formData = {};
+let smenaRating = null;
+
+const STEPS = 4;
+
+function startFlow(r) {
+  role = r;
+  step = 0;
+  arrived = false;
+  arriveTime = '';
+  dutyStates = {};
+  DUTIES[r].forEach((_,i) => dutyStates[i] = false);
+  formData = {};
+  smenaRating = null;
+
+  const meta = ROLES_META[r];
+  document.getElementById('s-login').classList.remove('active');
+  document.getElementById('s-flow').classList.add('active');
+
+  const badge = document.getElementById('roleBadge');
+  badge.textContent = meta.label;
+  badge.style.cssText = `background:${meta.color};color:${meta.tc};font-size:12px;font-weight:500;padding:3px 12px;border-radius:99px`;
+
+  renderStep();
+}
+
+function goLogin() {
+  document.getElementById('s-flow').classList.remove('active');
+  document.getElementById('s-login').classList.add('active');
+}
+
+function updateStepsNav() {
+  const nav = document.getElementById('stepsNav');
+  nav.innerHTML = Array.from({length:STEPS}, (_,i) =>
+    `<div class="step-dot ${i<step?'done':i===step?'active':''}"></div>`
+  ).join('');
+}
+
+function renderStep() {
+  updateStepsNav();
+  const c = document.getElementById('flowContent');
+  if(step === 0) c.innerHTML = renderArrival();
+  else if(step === 1) c.innerHTML = renderDuties();
+  else if(step === 2) c.innerHTML = renderForm();
+  else if(step === 3) c.innerHTML = renderSuccess();
+}
+
+// STEP 0 — KELISH
+function renderArrival() {
+  const t = new Date();
+  const tm = `${String(t.getHours()).padStart(2,'0')}:${String(t.getMinutes()).padStart(2,'0')}`;
+  const isLate = t.getHours() > 9 || (t.getHours()===9 && t.getMinutes()>5);
+  return `
+  <div class="page-title">Salom! Smena boshlash</div>
+  <div class="page-sub">${DATE} · Hozirgi vaqt: ${tm}</div>
+  <div class="card">
+    <div class="card-title"><i class="ti ti-login"></i>Kelish vaqtini belgilang</div>
+    <div class="form-group">
+      <label class="form-label">Kelgan vaqtingiz</label>
+      <input type="time" class="form-input" id="arrTime" value="${tm}">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Filial</label>
+      <select class="form-select" id="filial">
+        <option>Chilonzor filiali</option>
+        <option>Yunusobod filiali</option>
+        <option>Mirzo Ulug'bek filiali</option>
+        <option>Shayxontohur filiali</option>
+        <option>Uchtepa filiali</option>
+      </select>
+    </div>
+    ${isLate?`<div style="background:rgba(255,107,107,.1);border:.5px solid rgba(255,107,107,.2);border-radius:10px;padding:10px 14px;font-size:13px;color:#ff8080;margin-bottom:1rem"><i class="ti ti-alert-circle" style="vertical-align:-2px"></i> Ish boshlash vaqti 09:00. Kech qolish sababi yozilsin.</div>
+    <div class="form-group">
+      <label class="form-label">Kech qolish sababi</label>
+      <input type="text" class="form-input" id="lateReason" placeholder="Masalan: transport muammosi...">
+    </div>`:''}
+  </div>
+  <div class="btn-row">
+    <button class="btn-primary" onclick="confirmArrival()"><i class="ti ti-check"></i> Keldim, smena boshlash</button>
+  </div>`;
+}
+
+function confirmArrival() {
+  arriveTime = document.getElementById('arrTime').value;
+  const filial = document.getElementById('filial').value;
+  const lateEl = document.getElementById('lateReason');
+  formData.filial = filial;
+  formData.lateReason = lateEl ? lateEl.value : '';
+  formData.arriveTime = arriveTime;
+  arrived = true;
+  step = 1;
+  renderStep();
+}
+
+// STEP 1 — VAZIFALAR
+function renderDuties() {
+  const duties = DUTIES[role];
+  const done = Object.values(dutyStates).filter(Boolean).length;
+  const pct = Math.round(done/duties.length*100);
+  return `
+  <div class="page-title">Bugungi vazifalar</div>
+  <div class="page-sub">Bajargan vazifalaringizni belgilang</div>
+  <div class="prog-wrap">
+    <div class="prog-top"><span>Bajarilish</span><span id="pctLabel">${pct}%</span></div>
+    <div class="prog-bar"><div class="prog-fill" id="progFill" style="width:${pct}%"></div></div>
+  </div>
+  <div class="card">
+    <div class="card-title"><i class="ti ti-checklist"></i>Vazifalar ro'yxati</div>
+    ${duties.map((d,i)=>`
+    <div class="duty-item" id="d${i}">
+      <div class="chk ${dutyStates[i]?'done':''}" onclick="toggleDuty(${i})">${dutyStates[i]?'<i class="ti ti-check"></i>':''}</div>
+      <div class="duty-body">
+        <div class="duty-name ${dutyStates[i]?'done':''}">${d.n}</div>
+        <div class="duty-time"><i class="ti ti-clock" style="font-size:11px;vertical-align:-1px"></i> ${d.t}</div>
+        <span class="badge ${d.p}">${d.p==='b-red'?'Shoshilinch':d.p==='b-amber'?'Bugun':'Reja'}</span>
+      </div>
+    </div>`).join('')}
+  </div>
+  <div class="btn-row">
+    <button class="btn-outline" onclick="step=0;renderStep()"><i class="ti ti-arrow-left"></i> Orqaga</button>
+    <button class="btn-primary" onclick="step=2;renderStep()">Hisobot yozish <i class="ti ti-arrow-right"></i></button>
+  </div>`;
+}
+
+function toggleDuty(i) {
+  dutyStates[i] = !dutyStates[i];
+  const chk = document.querySelector(`#d${i} .chk`);
+  const nm  = document.querySelector(`#d${i} .duty-name`);
+  if(chk){ chk.classList.toggle('done',dutyStates[i]); chk.innerHTML=dutyStates[i]?'<i class="ti ti-check"></i>':''; }
+  if(nm) nm.classList.toggle('done',dutyStates[i]);
+  const done = Object.values(dutyStates).filter(Boolean).length;
+  const pct  = Math.round(done/DUTIES[role].length*100);
+  const pf = document.getElementById('progFill');
+  const pl = document.getElementById('pctLabel');
+  if(pf) pf.style.width = pct+'%';
+  if(pl) pl.textContent = pct+'%';
+}
+
+// STEP 2 — HISOBOT
+function renderForm() {
+  const fields = EXTRA_FIELDS[role];
+  return `
+  <div class="page-title">Kunlik hisobot</div>
+  <div class="page-sub">Smena natijalarini kiriting</div>
+  <div class="card">
+    <div class="card-title"><i class="ti ti-file-description"></i>Ma'lumotlar</div>
+    ${fields.map(f=>`
+    <div class="form-group">
+      <label class="form-label">${f.label}</label>
+      ${f.type==='textarea'
+        ? `<textarea class="form-textarea" id="f_${f.id}" placeholder="${f.ph}"></textarea>`
+        : `<input type="${f.type==='number'?'number':'text'}" class="form-input" id="f_${f.id}" placeholder="${f.ph}" ${f.type==='number'?'min="0"':''}>`
+      }
+    </div>`).join('')}
+  </div>
+  <div class="card">
+    <div class="card-title"><i class="ti ti-star"></i>Smena bahosi</div>
+    <div class="form-group">
+      <label class="form-label">Bugungi smena qanday o'tdi?</label>
+      <div class="rating-row">
+        <button class="rating-btn" id="r1" onclick="setRating(1)">😞 Yomon</button>
+        <button class="rating-btn" id="r2" onclick="setRating(2)">😐 O'rtacha</button>
+        <button class="rating-btn" id="r3" onclick="setRating(3)">😊 Yaxshi</button>
+        <button class="rating-btn" id="r4" onclick="setRating(4)">🔥 A'lo</button>
+      </div>
+    </div>
+  </div>
+  <div class="btn-row">
+    <button class="btn-outline" onclick="step=1;renderStep()"><i class="ti ti-arrow-left"></i> Orqaga</button>
+    <button class="btn-primary" onclick="submitReport()"><i class="ti ti-send"></i> Hisobot yuborish</button>
+  </div>`;
+}
+
+function setRating(v) {
+  smenaRating = v;
+  [1,2,3,4].forEach(i => {
+    const b = document.getElementById('r'+i);
+    if(b) b.classList.toggle('active', i===v);
+  });
+}
+
+async function submitReport() {
+  const fields = EXTRA_FIELDS[role];
+  fields.forEach(f => {
+    const el = document.getElementById('f_'+f.id);
+    if(el) formData[f.id] = el.value;
+  });
+  formData.rating = smenaRating;
+
+  // Yuborish tugmasini bloklash
+  const btn = document.querySelector('.btn-primary[onclick="submitReport()"]');
+  if(btn){ btn.disabled = true; btn.innerHTML = '<i class="ti ti-loader"></i> Yuborilmoqda...'; }
+
+  // Telegram xabar tayyorlash
+  const meta = ROLES_META[role];
+  const duties = DUTIES[role];
+  const doneCnt = Object.values(dutyStates).filter(Boolean).length;
+  const doneList = duties.filter((_,i) => dutyStates[i]).map(d => d.n);
+  const notDone  = duties.filter((_,i) => !dutyStates[i]).map(d => d.n);
+  const ratingEmoji = ['','😞','😐','😊','🔥'];
+  const ratingText  = ['','Yomon',"O'rtacha",'Yaxshi',"A'lo"];
+  const pct = Math.round(doneCnt/duties.length*100);
+
+  let msg = `📋 KUNLIK HISOBOT\n`;
+  msg += `━━━━━━━━━━━━━━━\n`;
+  msg += `👤 Lavozim: ${meta.label}\n`;
+  msg += `🏢 Filial: ${formData.filial||'—'}\n`;
+  msg += `📅 Sana: ${DATE}\n`;
+  msg += `⏰ Kelish: ${formData.arriveTime||arriveTime}\n`;
+  if(formData.lateReason) msg += `⚠️ Sabab: ${formData.lateReason}\n`;
+  msg += `\n✅ Vazifalar: ${doneCnt}/${duties.length} (${pct}%)\n`;
+  doneList.forEach(d => msg += `  ✔ ${d}\n`);
+  if(notDone.length){
+    msg += `\n❌ Bajarilmagan:\n`;
+    notDone.forEach(d => msg += `  ✘ ${d}\n`);
+  }
+  const extras = EXTRA_FIELDS[role].filter(f => formData[f.id]&&formData[f.id].toString().trim());
+  if(extras.length){
+    msg += `\n📊 Ko'rsatkichlar:\n`;
+    extras.forEach(f => msg += `  • ${f.label}: ${formData[f.id]}\n`);
+  }
+  if(smenaRating) msg += `\n${ratingEmoji[smenaRating]} Smena: ${ratingText[smenaRating]}\n`;
+  msg += `━━━━━━━━━━━━━━━\n🤖 Ottimo Hisobot tizimi`;
+
+  // Xabarni Telegram ga yuborish — link orqali
+  const encoded = encodeURIComponent(msg);
+  step = 3;
+  renderStep();
+  setTimeout(() => {
+    window.open('https://t.me/Ibr0kh1_M?text=' + encoded, '_blank');
+  }, 600);
+}
+
+// STEP 3 — SUCCESS
+function renderSuccess() {
+  const meta = ROLES_META[role];
+  const duties = DUTIES[role];
+  const doneCnt = Object.values(dutyStates).filter(Boolean).length;
+  const doneList = duties.filter((_,i)=>dutyStates[i]).map(d=>d.n);
+  const notDone  = duties.filter((_,i)=>!dutyStates[i]).map(d=>d.n);
+  const ratingEmoji = ['','😞','😐','😊','🔥'];
+  const ratingText  = ['','Yomon','O\'rtacha','Yaxshi','A\'lo'];
+
+  const tgMsg = buildTgMsg(meta, doneCnt, duties.length, doneList, notDone, ratingEmoji, ratingText);
+
+  return `
+  <div class="success-box">
+    <div class="success-icon"><i class="ti ti-circle-check"></i></div>
+    <div class="success-title">Hisobot yuborildi!</div>
+    <div class="success-sub">Hisobotingiz menejerga Telegram orqali yuborildi.<br>Yaxshi ish, ${meta.label}!</div>
+  </div>
+  <div class="card">
+    <div class="card-title"><i class="ti ti-brand-telegram"></i>Telegram xabar ko'rinishi</div>
+    <div class="tg-box">
+      <div class="tg-box-title">@busin_aibot — Menejerga yuborildi</div>
+      <div class="tg-msg" id="tgMsgText">${tgMsg}</div>
+    </div>
+    <div style="display:flex;gap:8px;margin-top:4px">
+      <button class="btn-primary" style="flex:1;justify-content:center" onclick="sendToTg()"><i class="ti ti-brand-telegram"></i> Telegram ga yuborish</button>
+      <button class="btn-outline" style="justify-content:center" onclick="copyMsg()"><i class="ti ti-copy"></i> Nusxa</button>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-title"><i class="ti ti-list-check"></i>Xulosa</div>
+    <div class="sum-item"><div class="sum-label">Xodim</div><div class="sum-val">${meta.label}</div></div>
+    <div class="sum-item"><div class="sum-label">Filial</div><div class="sum-val">${formData.filial||'—'}</div></div>
+    <div class="sum-item"><div class="sum-label">Kelish</div><div class="sum-val">${formData.arriveTime||arriveTime}</div></div>
+    <div class="sum-item"><div class="sum-label">Vazifalar</div><div class="sum-val">${doneCnt}/${duties.length} bajarildi</div></div>
+    <div class="sum-item"><div class="sum-label">Smena bahosi</div><div class="sum-val">${smenaRating?ratingEmoji[smenaRating]+' '+ratingText[smenaRating]:'Belgilanmagan'}</div></div>
+  </div>
+  <div class="btn-row" style="justify-content:center">
+    <button class="btn-outline" onclick="goLogin()"><i class="ti ti-home"></i> Bosh sahifaga</button>
+  </div>`;
+}
+
+function buildTgMsg(meta, doneCnt, total, doneList, notDone, ratingEmoji, ratingText) {
+  const pct = Math.round(doneCnt/total*100);
+  let msg = `📋 KUNLIK HISOBOT\n`;
+  msg += `━━━━━━━━━━━━━━━\n`;
+  msg += `👤 Lavozim: ${meta.label}\n`;
+  msg += `🏢 Filial: ${formData.filial||'—'}\n`;
+  msg += `📅 Sana: ${DATE}\n`;
+  msg += `⏰ Kelish: ${formData.arriveTime||arriveTime}\n`;
+  if(formData.lateReason) msg += `⚠️ Sabab: ${formData.lateReason}\n`;
+  msg += `\n✅ Vazifalar: ${doneCnt}/${total} (${pct}%)\n`;
+  if(doneList.length) {
+    doneList.forEach(d => msg += `  ✔ ${d}\n`);
+  }
+  if(notDone.length) {
+    msg += `\n❌ Bajarilmagan:\n`;
+    notDone.forEach(d => msg += `  ✘ ${d}\n`);
+  }
+
+  const fields = EXTRA_FIELDS[role];
+  const extras = fields.filter(f=>formData[f.id]&&formData[f.id].toString().trim());
+  if(extras.length) {
+    msg += `\n📊 Ko'rsatkichlar:\n`;
+    extras.forEach(f => msg += `  • ${f.label}: ${formData[f.id]}\n`);
+  }
+
+  if(smenaRating) {
+    msg += `\n${ratingEmoji[smenaRating]} Smena: ${ratingText[smenaRating]}\n`;
+  }
+  msg += `━━━━━━━━━━━━━━━\n`;
+  msg += `🤖 Ottimo Hisobot tizimi`;
+  return msg;
+}
+
+function copyMsg() {
+  const el = document.getElementById('tgMsgText');
+  if(!el) return;
+  navigator.clipboard.writeText(el.textContent).then(()=>{
+    const btn = el.closest('.card').querySelector('button');
+    if(btn){ btn.innerHTML='<i class="ti ti-check"></i> Nusxa olindi!'; setTimeout(()=>btn.innerHTML='<i class="ti ti-copy"></i> Nusxa olish',2000); }
+  });
+}
+</script>
+</body>
+</html>
