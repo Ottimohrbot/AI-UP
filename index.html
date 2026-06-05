@@ -156,12 +156,12 @@ html,body{min-height:100vh;font-family:'DM Sans',sans-serif;background:var(--bg)
       <div class="form-group">
         <label class="form-label">PIN kod (6 ta raqam)</label>
         <div class="pin-row">
-          <input class="pin-input" id="p6" maxlength="6" type="password" inputmode="numeric" oninput="pinNext(6)">
-          <input class="pin-input" id="p8" maxlength="8" type="password" inputmode="numeric" oninput="pinNext(8)">
-          <input class="pin-input" id="p8" maxlength="8" type="password" inputmode="numeric" oninput="pinNext(8)">
-          <input class="pin-input" id="p4" maxlength="4" type="password" inputmode="numeric" oninput="pinNext(4)">
-           <input class="pin-input" id="p6" maxlength="16" type="password" inputmode="numeric" oninput="pinNext(6)">
-          <input class="pin-input" id="p6" maxlength="6" type="password" inputmode="numeric" oninput="pinNext(6)">
+          <input class="pin-input" id="p0" maxlength="1" type="password" inputmode="numeric" oninput="pinNext(0)">
+          <input class="pin-input" id="p1" maxlength="1" type="password" inputmode="numeric" oninput="pinNext(1)">
+          <input class="pin-input" id="p2" maxlength="1" type="password" inputmode="numeric" oninput="pinNext(2)">
+          <input class="pin-input" id="p3" maxlength="1" type="password" inputmode="numeric" oninput="pinNext(3)">
+          <input class="pin-input" id="p4" maxlength="1" type="password" inputmode="numeric" oninput="pinNext(4)">
+          <input class="pin-input" id="p5" maxlength="1" type="password" inputmode="numeric" oninput="pinNext(5)">
         </div>
       </div>
       <button class="btn-primary" onclick="loginAdmin()">Kirish</button>
@@ -180,6 +180,8 @@ html,body{min-height:100vh;font-family:'DM Sans',sans-serif;background:var(--bg)
           <input class="pin-input" id="wp1" maxlength="1" type="password" inputmode="numeric" oninput="wPinNext(1)">
           <input class="pin-input" id="wp2" maxlength="1" type="password" inputmode="numeric" oninput="wPinNext(2)">
           <input class="pin-input" id="wp3" maxlength="1" type="password" inputmode="numeric" oninput="wPinNext(3)">
+          <input class="pin-input" id="wp4" maxlength="1" type="password" inputmode="numeric" oninput="wPinNext(4)">
+          <input class="pin-input" id="wp5" maxlength="1" type="password" inputmode="numeric" oninput="wPinNext(5)">
         </div>
       </div>
       <button class="btn-primary" onclick="loginWorker()">Kirish</button>
@@ -327,15 +329,15 @@ function switchTab(tab) {
 
 function pinNext(i) {
   const v = document.getElementById('p'+i).value;
-  if(v && i<3) document.getElementById('p'+(i+1)).focus();
+  if(v && i<5) document.getElementById('p'+(i+1)).focus();
 }
 function wPinNext(i) {
   const v = document.getElementById('wp'+i).value;
-  if(v && i<3) document.getElementById('wp'+(i+1)).focus();
+  if(v && i<5) document.getElementById('wp'+(i+1)).focus();
 }
 
 function getPin(prefix) {
-  return [0,1,2,3].map(i=>document.getElementById(prefix+i).value).join('');
+  return [0,1,2,3,4,5].map(i=>document.getElementById(prefix+i).value).join('');
 }
 
 async function loginAdmin() {
@@ -349,8 +351,8 @@ async function loginAdmin() {
     adminPage('dashboard');
   } else {
     document.getElementById('adminErr').textContent = 'Login yoki PIN noto\'g\'ri!';
-    [0,1,2,3].forEach(i=>{ const el=document.getElementById('p'+i); el.value=''; el.style.borderColor='#ff8080'; });
-    setTimeout(()=>[0,1,2,3].forEach(i=>document.getElementById('p'+i).style.borderColor=''),1500);
+    [0,1,2,3,4,5].forEach(i=>{ const el=document.getElementById('p'+i); el.value=''; el.style.borderColor='#ff8080'; });
+    setTimeout(()=>[0,1,2,3,4,5].forEach(i=>document.getElementById('p'+i).style.borderColor=''),1500);
   }
 }
 
@@ -369,8 +371,8 @@ async function loginWorker() {
     startWorkerFlow();
   } else {
     document.getElementById('workerErr').textContent = 'Login yoki PIN noto\'g\'ri!';
-    [0,1,2,3].forEach(i=>{ const el=document.getElementById('wp'+i); el.value=''; el.style.borderColor='#ff8080'; });
-    setTimeout(()=>[0,1,2,3].forEach(i=>document.getElementById('wp'+i).style.borderColor=''),1500);
+    [0,1,2,3,4,5].forEach(i=>{ const el=document.getElementById('wp'+i); el.value=''; el.style.borderColor='#ff8080'; });
+    setTimeout(()=>[0,1,2,3,4,5].forEach(i=>document.getElementById('wp'+i).style.borderColor=''),1500);
   }
 }
 
@@ -378,8 +380,8 @@ function logout() {
   currentWorker = null;
   workerStep = 0; workerDuties = {}; workerForm = {}; workerRating = null;
   show('s-login');
-  [0,1,2,3].forEach(i=>{ const a=document.getElementById('p'+i); if(a)a.value=''; });
-  [0,1,2,3].forEach(i=>{ const a=document.getElementById('wp'+i); if(a)a.value=''; });
+  [0,1,2,3,4,5].forEach(i=>{ const a=document.getElementById('p'+i); if(a)a.value=''; });
+  [0,1,2,3,4,5].forEach(i=>{ const a=document.getElementById('wp'+i); if(a)a.value=''; });
   document.getElementById('workerLogin').value='';
   document.getElementById('adminErr').textContent='';
   document.getElementById('workerErr').textContent='';
@@ -509,12 +511,14 @@ function adminAddWorker() {
         </select>
       </div>
       <div class="form-group"><label class="form-label">Login (avtomatik yoki o'zingiz kiriting)</label><input class="form-input" id="nw_login" placeholder="ism_lavozim"></div>
-      <div class="form-group"><label class="form-label">PIN kod (4 ta raqam)</label>
+      <div class="form-group"><label class="form-label">PIN kod (6 ta raqam)</label>
         <div class="pin-row" style="justify-content:flex-start">
           <input class="pin-input" id="nw_p0" maxlength="1" type="number" inputmode="numeric" oninput="nwPinNext(0)">
           <input class="pin-input" id="nw_p1" maxlength="1" type="number" inputmode="numeric" oninput="nwPinNext(1)">
           <input class="pin-input" id="nw_p2" maxlength="1" type="number" inputmode="numeric" oninput="nwPinNext(2)">
           <input class="pin-input" id="nw_p3" maxlength="1" type="number" inputmode="numeric" oninput="nwPinNext(3)">
+          <input class="pin-input" id="nw_p4" maxlength="1" type="number" inputmode="numeric" oninput="nwPinNext(4)">
+          <input class="pin-input" id="nw_p5" maxlength="1" type="number" inputmode="numeric" oninput="nwPinNext(5)">
         </div>
       </div>
       <div style="display:flex;gap:8px;margin-top:.5rem">
@@ -528,7 +532,7 @@ function adminAddWorker() {
 
 function nwPinNext(i) {
   const v = document.getElementById('nw_p'+i).value;
-  if(v && i<3) document.getElementById('nw_p'+(i+1)).focus();
+  if(v && i<5) document.getElementById('nw_p'+(i+1)).focus();
 }
 
 function autoFill() {
@@ -538,7 +542,7 @@ function autoFill() {
     const first = name.split(' ')[0].toLowerCase();
     document.getElementById('nw_login').value = `${first}_${role}`;
   }
-  const pin = Math.floor(1000+Math.random()*9000).toString();
+  const pin = Math.floor(100000+Math.random()*900000).toString();
   pin.split('').forEach((c,i)=>document.getElementById('nw_p'+i).value=c);
 }
 
@@ -547,9 +551,9 @@ async function saveWorker() {
   const role   = document.getElementById('nw_role').value;
   const filial = document.getElementById('nw_filial').value;
   const login  = document.getElementById('nw_login').value.trim().toLowerCase();
-  const pin    = [0,1,2,3].map(i=>document.getElementById('nw_p'+i).value).join('');
+  const pin    = [0,1,2,3,4,5].map(i=>document.getElementById('nw_p'+i).value).join('');
 
-  if(!name||!login||pin.length!==4) { document.getElementById('nwErr').textContent='Barcha maydonlarni to\'ldiring!'; return; }
+  if(!name||!login||pin.length!==6) { document.getElementById('nwErr').textContent='Barcha maydonlarni to\'ldiring!'; return; }
 
   const d = loadData();
   if(d.workers.find(w=>w.login===login)) { document.getElementById('nwErr').textContent='Bu login allaqachon mavjud!'; return; }
@@ -583,7 +587,7 @@ function editWorker(id) {
   openModal(`<div class="modal-title">PIN o'zgartirish</div>
     <div style="font-size:14px;margin-bottom:1rem">👤 <b>${w.name}</b> — ${ROLE_LABELS[w.role]||w.role}</div>
     <div class="modal-form">
-      <div class="form-group"><label class="form-label">Yangi PIN (6 ta raqam)</label>
+      <div class="form-group"><label class="form-label">Yangi PIN (4 ta raqam)</label>
         <div class="pin-row" style="justify-content:flex-start">
           <input class="pin-input" id="ep0" maxlength="1" type="number" inputmode="numeric">
           <input class="pin-input" id="ep1" maxlength="1" type="number" inputmode="numeric">
@@ -591,7 +595,6 @@ function editWorker(id) {
           <input class="pin-input" id="ep3" maxlength="1" type="number" inputmode="numeric">
           <input class="pin-input" id="ep4" maxlength="1" type="number" inputmode="numeric">
           <input class="pin-input" id="ep5" maxlength="1" type="number" inputmode="numeric">
-          <input class="pin-input" id="ep6" maxlength="1" type="number" inputmode="numeric">
         </div>
       </div>
     </div>
@@ -602,7 +605,7 @@ function editWorker(id) {
 }
 
 async function updatePin(id) {
-  const pin = [6,8,8,4,6,6].map(i=>document.getElementById('ep'+i).value).join('');
+  const pin = [0,1,2,3,4,5].map(i=>document.getElementById('ep'+i).value).join('');
   if(pin.length!==6) { alert('6 ta raqam kiriting!'); return; }
   const hashed = await hashPin(pin);
   const d = loadData();
