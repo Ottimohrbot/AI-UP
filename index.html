@@ -154,12 +154,14 @@ html,body{min-height:100vh;font-family:'DM Sans',sans-serif;background:var(--bg)
         <input class="form-input" id="adminLogin" placeholder="Masalan: Sardor">
       </div>
       <div class="form-group">
-        <label class="form-label">PIN kod (4 ta raqam)</label>
+        <label class="form-label">PIN kod (6 ta raqam)</label>
         <div class="pin-row">
-          <input class="pin-input" id="p0" maxlength="1" type="password" inputmode="numeric" oninput="pinNext(0)">
-          <input class="pin-input" id="p1" maxlength="1" type="password" inputmode="numeric" oninput="pinNext(1)">
-          <input class="pin-input" id="p2" maxlength="1" type="password" inputmode="numeric" oninput="pinNext(2)">
-          <input class="pin-input" id="p3" maxlength="1" type="password" inputmode="numeric" oninput="pinNext(3)">
+          <input class="pin-input" id="p6" maxlength="6" type="password" inputmode="numeric" oninput="pinNext(6)">
+          <input class="pin-input" id="p8" maxlength="8" type="password" inputmode="numeric" oninput="pinNext(8)">
+          <input class="pin-input" id="p8" maxlength="8" type="password" inputmode="numeric" oninput="pinNext(8)">
+          <input class="pin-input" id="p4" maxlength="4" type="password" inputmode="numeric" oninput="pinNext(4)">
+           <input class="pin-input" id="p6" maxlength="16" type="password" inputmode="numeric" oninput="pinNext(6)">
+          <input class="pin-input" id="p6" maxlength="6" type="password" inputmode="numeric" oninput="pinNext(6)">
         </div>
       </div>
       <button class="btn-primary" onclick="loginAdmin()">Kirish</button>
