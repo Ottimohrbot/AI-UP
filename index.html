@@ -24,7 +24,7 @@ html,body{min-height:100vh;font-family:'DM Sans',sans-serif;background:var(--bg)
 .logo{font-family:'Syne',sans-serif;font-size:28px;font-weight:800;letter-spacing:-1px;text-align:center;margin-bottom:4px}
 .logo span{color:var(--accent2)}
 .logo-sub{font-size:13px;color:var(--text3);text-align:center;margin-bottom:2rem}
-.login-box{background:var(--bg2);border:.5px solid var(--border);border-radius:16px;padding:1.5rem;width:100%;max-width:400px}
+.login-box{background:var(--bg2);border:.5px solid var(--border);border-radius:16px;padding:2rem;width:100%;max-width:360px}
 .login-tabs{display:flex;gap:8px;margin-bottom:1.5rem}
 .ltab{flex:1;padding:8px;border-radius:8px;border:.5px solid var(--border);background:none;cursor:pointer;font-size:13px;color:var(--text2);font-family:'DM Sans',sans-serif;transition:all .2s}
 .ltab.active{background:var(--accent);border-color:var(--accent);color:#fff}
@@ -32,8 +32,8 @@ html,body{min-height:100vh;font-family:'DM Sans',sans-serif;background:var(--bg)
 .form-label{font-size:12px;color:var(--text3);margin-bottom:5px;display:block;text-transform:uppercase;letter-spacing:.05em}
 .form-input{width:100%;background:var(--bg3);border:.5px solid var(--border2);color:var(--text);border-radius:10px;padding:10px 14px;font-size:14px;font-family:'DM Sans',sans-serif;outline:none;transition:border-color .2s}
 .form-input:focus{border-color:var(--accent)}
-.pin-row{display:flex;gap:6px;justify-content:center;margin:8px 0;flex-wrap:nowrap}
-.pin-input{width:42px;height:48px;background:var(--bg3);border:.5px solid var(--border2);color:var(--text);border-radius:10px;font-size:20px;font-weight:700;text-align:center;outline:none;font-family:'Syne',sans-serif;transition:border-color .2s}
+.pin-row{display:flex;gap:8px;justify-content:center;margin:8px 0}
+.pin-input{width:48px;height:52px;background:var(--bg3);border:.5px solid var(--border2);color:var(--text);border-radius:10px;font-size:22px;font-weight:700;text-align:center;outline:none;font-family:'Syne',sans-serif;transition:border-color .2s}
 .pin-input:focus{border-color:var(--accent)}
 .btn-primary{width:100%;background:var(--accent);border:none;color:#fff;border-radius:10px;padding:11px;cursor:pointer;font-size:14px;font-family:'DM Sans',sans-serif;font-weight:500;margin-top:.5rem;transition:opacity .2s}
 .btn-primary:hover{opacity:.88}
@@ -151,17 +151,17 @@ html,body{min-height:100vh;font-family:'DM Sans',sans-serif;background:var(--bg)
     <div id="adminForm">
       <div class="form-group">
         <label class="form-label">Ismingiz</label>
-        <input class="form-input" id="adminLogin" placeholder="Masalan: Sardor" onkeydown="if(event.key==='Enter')loginAdmin()">
+        <input class="form-input" id="adminLogin" placeholder="Masalan: Sardor">
       </div>
       <div class="form-group">
         <label class="form-label">PIN kod (6 ta raqam)</label>
         <div class="pin-row">
-          <input class="pin-input" id="p0" maxlength="1" type="tel" inputmode="numeric" oninput="pinNext(0)" style="-webkit-text-security:disc">
-          <input class="pin-input" id="p1" maxlength="1" type="tel" inputmode="numeric" oninput="pinNext(1)">
-          <input class="pin-input" id="p2" maxlength="1" type="tel" inputmode="numeric" oninput="pinNext(2)" style="-webkit-text-security:disc">
-          <input class="pin-input" id="p3" maxlength="1" type="tel" inputmode="numeric" oninput="pinNext(3)" style="-webkit-text-security:disc">
-          <input class="pin-input" id="p4" maxlength="1" type="tel" inputmode="numeric" oninput="pinNext(4)" style="-webkit-text-security:disc">
-          <input class="pin-input" id="p5" maxlength="1" type="tel" inputmode="numeric" oninput="pinNext(5)" style="-webkit-text-security:disc">
+          <input class="pin-input" id="p0" maxlength="1" type="password" inputmode="numeric" oninput="pinNext(0)">
+          <input class="pin-input" id="p1" maxlength="1" type="password" inputmode="numeric" oninput="pinNext(1)">
+          <input class="pin-input" id="p2" maxlength="1" type="password" inputmode="numeric" oninput="pinNext(2)">
+          <input class="pin-input" id="p3" maxlength="1" type="password" inputmode="numeric" oninput="pinNext(3)">
+          <input class="pin-input" id="p4" maxlength="1" type="password" inputmode="numeric" oninput="pinNext(4)">
+          <input class="pin-input" id="p5" maxlength="1" type="password" inputmode="numeric" oninput="pinNext(5)">
         </div>
       </div>
       <button class="btn-primary" onclick="loginAdmin()">Kirish</button>
@@ -171,17 +171,17 @@ html,body{min-height:100vh;font-family:'DM Sans',sans-serif;background:var(--bg)
     <div id="workerForm" style="display:none">
       <div class="form-group">
         <label class="form-label">Login (rahbar bergan)</label>
-        <input class="form-input" id="workerLogin" placeholder="masalan: alisher_barista" onkeydown="if(event.key==='Enter')loginWorker()">
+        <input class="form-input" id="workerLogin" placeholder="masalan: alisher_barista">
       </div>
       <div class="form-group">
         <label class="form-label">PIN kod</label>
         <div class="pin-row">
-          <input class="pin-input" id="wp0" maxlength="1" type="tel" inputmode="numeric" oninput="wPinNext(0)" style="-webkit-text-security:disc">
-          <input class="pin-input" id="wp1" maxlength="1" type="tel" inputmode="numeric" oninput="wPinNext(1)" style="-webkit-text-security:disc">
-          <input class="pin-input" id="wp2" maxlength="1" type="tel" inputmode="numeric" oninput="wPinNext(2)" style="-webkit-text-security:disc">
-          <input class="pin-input" id="wp3" maxlength="1" type="tel" inputmode="numeric" oninput="wPinNext(3)" style="-webkit-text-security:disc">
-          <input class="pin-input" id="wp4" maxlength="1" type="tel" inputmode="numeric" oninput="wPinNext(4)" style="-webkit-text-security:disc">
-          <input class="pin-input" id="wp5" maxlength="1" type="tel" inputmode="numeric" oninput="wPinNext(5)" style="-webkit-text-security:disc">
+          <input class="pin-input" id="wp0" maxlength="1" type="password" inputmode="numeric" oninput="wPinNext(0)">
+          <input class="pin-input" id="wp1" maxlength="1" type="password" inputmode="numeric" oninput="wPinNext(1)">
+          <input class="pin-input" id="wp2" maxlength="1" type="password" inputmode="numeric" oninput="wPinNext(2)">
+          <input class="pin-input" id="wp3" maxlength="1" type="password" inputmode="numeric" oninput="wPinNext(3)">
+          <input class="pin-input" id="wp4" maxlength="1" type="password" inputmode="numeric" oninput="wPinNext(4)">
+          <input class="pin-input" id="wp5" maxlength="1" type="password" inputmode="numeric" oninput="wPinNext(5)">
         </div>
       </div>
       <button class="btn-primary" onclick="loginWorker()">Kirish</button>
@@ -234,6 +234,9 @@ html,body{min-height:100vh;font-family:'DM Sans',sans-serif;background:var(--bg)
 // ══════════════════════════════
 // DATA STORE (localStorage)
 // ══════════════════════════════
+// Admin PIN hash (PIN ochiq ko'rinmaydi)
+const ADMIN_HASH = '5be891405b2936ae37f0ed8d8d78fb4bb05128977b0fdb36247d82271fde1999';
+async function hashPin(pin){const buf=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(pin));return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');}
 const STORE_KEY = 'ottimo_data';
 
 function loadData() {
@@ -325,43 +328,40 @@ function switchTab(tab) {
 }
 
 function pinNext(i) {
-  const el = document.getElementById('p'+i);
-  el.value = el.value.replace(/[^0-9]/g,'').slice(-1);
-  if(el.value && i<5) document.getElementById('p'+(i+1)).focus();
+  const v = document.getElementById('p'+i).value;
+  if(v && i<5) document.getElementById('p'+(i+1)).focus();
 }
 function wPinNext(i) {
-  const el = document.getElementById('wp'+i);
-  el.value = el.value.replace(/[^0-9]/g,'').slice(-1);
-  if(el.value && i<5) document.getElementById('wp'+(i+1)).focus();
+  const v = document.getElementById('wp'+i).value;
+  if(v && i<5) document.getElementById('wp'+(i+1)).focus();
 }
 
 function getPin(prefix) {
   return [0,1,2,3,4,5].map(i=>document.getElementById(prefix+i).value).join('');
 }
 
-function loginAdmin() {
+async function loginAdmin() {
   const pin = getPin('p');
   const login = document.getElementById('adminLogin').value.trim();
-  // PIN encoded: split check
-  const _a=[6,8,8,4,6,6];
-  const ok = pin.length===6 && pin.split('').every((c,i)=>parseInt(c)===_a[i]);
-  if(login.length >= 2 && ok) {
-    window._adminName = login;
+  const hashed = await hashPin(pin);
+  if(login.trim().length >= 2 && hashed===ADMIN_HASH) {
+    window._adminName = login.trim();
     show('s-admin');
-    const nb=document.getElementById('adminNameBadge'); if(nb) nb.textContent=login;
+    const nb=document.getElementById('adminNameBadge'); if(nb) nb.textContent=login.trim();
     adminPage('dashboard');
   } else {
-    document.getElementById('adminErr').textContent = 'Ism yoki PIN noto\'g\'ri!';
+    document.getElementById('adminErr').textContent = 'Login yoki PIN noto\'g\'ri!';
     [0,1,2,3,4,5].forEach(i=>{ const el=document.getElementById('p'+i); el.value=''; el.style.borderColor='#ff8080'; });
     setTimeout(()=>[0,1,2,3,4,5].forEach(i=>document.getElementById('p'+i).style.borderColor=''),1500);
   }
 }
 
-function loginWorker() {
+async function loginWorker() {
   const login = document.getElementById('workerLogin').value.trim().toLowerCase();
   const pin   = getPin('wp');
+  const hashed = await hashPin(pin);
   const d = loadData();
-  const w = d.workers.find(x => x.login.toLowerCase()===login && x.pin===pin);
+  const w = d.workers.find(x => x.login.toLowerCase()===login && x.pin===hashed);
   if(w) {
     currentWorker = w;
     const [bg,tc] = (ROLE_COLORS[w.role]||'rgba(255,255,255,.1)|#fff').split('|');
@@ -418,16 +418,24 @@ function adminDashboard() {
   <div class="page-sub">${today}</div>
   <div class="metrics">
     <div class="metric" style="cursor:pointer" onclick="adminPage('workers')"><div class="metric-lbl">Jami ishchilar</div><div class="metric-val">${d.workers.length}</div><div class="metric-sub">Ro'yxatdagi</div></div>
-    <div class="metric" style="cursor:pointer" onclick="adminPage('reports')"><div class="metric-lbl">Bugungi hisobot</div><div class="metric-val">${todayReports.length}</div><div class="metric-sub" style="color:${todayReports.length>0?'#a89eff':''}">${todayReports.length>0?'Ko'\''rishga bosing':'Hali yo'\''q'}</div></div>
-    <div class="metric" style="cursor:pointer" onclick="adminPage('reports')"><div class="metric-lbl">Kutilmoqda</div><div class="metric-val" style="color:${pending>0?'#f5a623':''}">${pending}</div><div class="metric-sub" style="color:${pending>0?'#f5a623':''}">${pending>0?'Tasdiqlanmagan':'Hammasi ko'\''rilgan'}</div></div>
-    <div class="metric" style="cursor:pointer" onclick="adminPage('reports')"><div class="metric-lbl">Tasdiqlangan</div><div class="metric-val" style="color:${approved>0?'#2dd4a0':''}">${approved}</div><div class="metric-sub" style="color:${approved>0?'#2dd4a0':''}">${approved>0?'Bugun':'Hali yo'\''q'}</div></div>
+    <div class="metric" style="cursor:pointer" onclick="adminPage('reports')"><div class="metric-lbl">Bugungi hisobot</div><div class="metric-val" style="color:${todayReports.length>0?'#a89eff':''}">${todayReports.length}</div><div class="metric-sub">Topshirilgan</div></div>
+    <div class="metric" style="cursor:pointer" onclick="adminPage('reports')"><div class="metric-lbl">Kutilmoqda</div><div class="metric-val" style="color:${pending>0?'#f5a623':'var(--text3)'}">${pending}</div><div class="metric-sub" style="color:${pending>0?'#f5a623':''}">Tasdiqlanmagan</div></div>
+    <div class="metric" style="cursor:pointer" onclick="adminPage('reports')"><div class="metric-lbl">Tasdiqlangan</div><div class="metric-val" style="color:${approved>0?'#2dd4a0':'var(--text3)'}">${approved}</div><div class="metric-sub" style="color:${approved>0?'#2dd4a0':''}">Bugun</div></div>
   </div>
   <div class="card">
     <div class="card-head"><div class="card-title"><i class="ti ti-clock"></i>Kutilayotgan hisobotlar ${pending>0?'<span class="badge b-amber" style="margin-left:6px">'+pending+'</span>':''}</div><button class="btn-sm" onclick="adminPage('reports')">Barchasi <i class="ti ti-arrow-right"></i></button></div>
     ${d.reports.filter(r=>r.status==='pending').length===0
       ? '<div style="text-align:center;padding:1.5rem;color:var(--text3);font-size:14px"><i class="ti ti-circle-check" style="font-size:24px;display:block;margin-bottom:8px;color:#2dd4a0"></i>Barcha hisobotlar tasdiqlangan!</div>'
-      : '<table class="tbl"><thead><tr><th>Ishchi</th><th>Lavozim</th><th>Sana</th><th>Vazifalar</th><th>Amal</th></tr></thead><tbody>'+
-        d.reports.filter(r=>r.status==='pending').reverse().map(r=>'<tr><td><b>'+r.workerName+'</b><div style="font-size:11px;color:var(--text3)">'+r.filial+'</div></td><td><span class="badge b-blue">'+( ROLE_LABELS[r.role]||r.role)+'</span></td><td style="color:var(--text3);font-size:12px">'+r.date+' · '+r.time+'</td><td><span class="badge '+( r.dutyPct>=80?'b-green':r.dutyPct>=50?'b-amber':'b-red')+'">'+r.dutyDone+'/'+r.dutyTotal+'</span></td><td><button class="btn-success" onclick="viewReport(\''+ r.id +'\'')" ><i class="ti ti-eye"></i> Ko\'rish</button></td></tr>').join('') +'</tbody></table>'
+      : '<table class="tbl"><thead><tr><th>Ishchi</th><th>Lavozim</th><th>Filial</th><th>Sana</th><th>Vazifalar</th><th>Amal</th></tr></thead><tbody>'+
+        d.reports.filter(r=>r.status==='pending').reverse().map(r=>'<tr><td><b>'+r.workerName+'</b></td><td><span class="badge b-blue">'+(ROLE_LABELS[r.role]||r.role)+'</span></td><td style="color:var(--text3);font-size:12px">'+(r.filial||'—')+'</td><td style="color:var(--text3);font-size:12px">'+r.date+' · '+r.time+'</td><td><span class="badge '+(r.dutyPct>=80?'b-green':r.dutyPct>=50?'b-amber':'b-red')+'">'+r.dutyDone+'/'+r.dutyTotal+'</span></td><td><button class="btn-success" onclick="viewReport(\''+r.id+'\')"><i class="ti ti-eye"></i> Ko\'rish</button></td></tr>').join('')+'</tbody></table>'
+    }
+  </div>
+  <div class="card">
+    <div class="card-head"><div class="card-title"><i class="ti ti-circle-check" style="color:#2dd4a0"></i>Bugun tasdiqlangan ${approved>0?'<span class="badge b-green" style="margin-left:6px">'+approved+'</span>':''}</div></div>
+    ${d.reports.filter(r=>r.status==='approved'&&r.date===today).length===0
+      ? '<div style="text-align:center;padding:1rem;color:var(--text3);font-size:13px">Bugun tasdiqlangan hisobot yo\'q</div>'
+      : '<table class="tbl"><thead><tr><th>Ishchi</th><th>Lavozim</th><th>Filial</th><th>Sana</th><th>Vazifalar</th></tr></thead><tbody>'+
+        d.reports.filter(r=>r.status==='approved'&&r.date===today).reverse().map(r=>'<tr><td><b>'+r.workerName+'</b></td><td><span class="badge b-blue">'+(ROLE_LABELS[r.role]||r.role)+'</span></td><td style="color:var(--text3);font-size:12px">'+(r.filial||'—')+'</td><td style="color:var(--text3);font-size:12px">'+r.date+' · '+r.time+'</td><td><span class="badge b-green">'+r.dutyDone+'/'+r.dutyTotal+'</span></td></tr>').join('')+'</tbody></table>'
     }
   </div>`;
 }
@@ -541,7 +549,7 @@ function autoFill() {
   pin.split('').forEach((c,i)=>document.getElementById('nw_p'+i).value=c);
 }
 
-function saveWorker() {
+async function saveWorker() {
   const name   = document.getElementById('nw_name').value.trim();
   const role   = document.getElementById('nw_role').value;
   const filial = document.getElementById('nw_filial').value;
@@ -553,7 +561,8 @@ function saveWorker() {
   const d = loadData();
   if(d.workers.find(w=>w.login===login)) { document.getElementById('nwErr').textContent='Bu login allaqachon mavjud!'; return; }
 
-  d.workers.push({id:'w'+Date.now(), login, pin, name, role, filial});
+  const pinHashed = await hashPin(pin);
+  d.workers.push({id:'w'+Date.now(), login, pin:pinHashed, name, role, filial});
   saveData(d);
 
   openModal(`<div class="modal-title" style="color:#2dd4a0"><i class="ti ti-circle-check"></i> Yaratildi!</div>
@@ -598,12 +607,13 @@ function editWorker(id) {
     </div>`);
 }
 
-function updatePin(id) {
+async function updatePin(id) {
   const pin = [0,1,2,3,4,5].map(i=>document.getElementById('ep'+i).value).join('');
   if(pin.length!==6) { alert('6 ta raqam kiriting!'); return; }
+  const hashed = await hashPin(pin);
   const d = loadData();
   const w = d.workers.find(x=>x.id===id);
-  if(w) { w.pin=pin; saveData(d); }
+  if(w) { w.pin=hashed; saveData(d); }
   closeModal();
   adminPage('workers');
 }
