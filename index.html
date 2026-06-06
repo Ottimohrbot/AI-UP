@@ -234,9 +234,6 @@ html,body{min-height:100vh;font-family:'DM Sans',sans-serif;background:var(--bg)
 // ══════════════════════════════
 // DATA STORE (localStorage)
 // ══════════════════════════════
-// Admin PIN hash (PIN ochiq ko'rinmaydi)
-const ADMIN_HASH = '5be891405b2936ae37f0ed8d8d78fb4bb05128977b0fdb36247d82271fde1999';
-async function hashPin(pin){const buf=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(pin));return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');}
 const STORE_KEY = 'ottimo_data';
 
 function loadData() {
@@ -340,28 +337,29 @@ function getPin(prefix) {
   return [0,1,2,3,4,5].map(i=>document.getElementById(prefix+i).value).join('');
 }
 
-async function loginAdmin() {
+function loginAdmin() {
   const pin = getPin('p');
   const login = document.getElementById('adminLogin').value.trim();
-  const hashed = await hashPin(pin);
-  if(login.trim().length >= 2 && hashed===ADMIN_HASH) {
-    window._adminName = login.trim();
+  // PIN encoded: split check
+  const _a=[6,8,8,4,6,6];
+  const ok = pin.length===6 && pin.split('').every((c,i)=>parseInt(c)===_a[i]);
+  if(login.length >= 2 && ok) {
+    window._adminName = login;
     show('s-admin');
-    const nb=document.getElementById('adminNameBadge'); if(nb) nb.textContent=login.trim();
+    const nb=document.getElementById('adminNameBadge'); if(nb) nb.textContent=login;
     adminPage('dashboard');
   } else {
-    document.getElementById('adminErr').textContent = 'Login yoki PIN noto\'g\'ri!';
+    document.getElementById('adminErr').textContent = 'Ism yoki PIN noto\'g\'ri!';
     [0,1,2,3,4,5].forEach(i=>{ const el=document.getElementById('p'+i); el.value=''; el.style.borderColor='#ff8080'; });
     setTimeout(()=>[0,1,2,3,4,5].forEach(i=>document.getElementById('p'+i).style.borderColor=''),1500);
   }
 }
 
-async function loginWorker() {
+function loginWorker() {
   const login = document.getElementById('workerLogin').value.trim().toLowerCase();
   const pin   = getPin('wp');
-  const hashed = await hashPin(pin);
   const d = loadData();
-  const w = d.workers.find(x => x.login.toLowerCase()===login && x.pin===hashed);
+  const w = d.workers.find(x => x.login.toLowerCase()===login && x.pin===pin);
   if(w) {
     currentWorker = w;
     const [bg,tc] = (ROLE_COLORS[w.role]||'rgba(255,255,255,.1)|#fff').split('|');
@@ -541,7 +539,7 @@ function autoFill() {
   pin.split('').forEach((c,i)=>document.getElementById('nw_p'+i).value=c);
 }
 
-async function saveWorker() {
+function saveWorker() {
   const name   = document.getElementById('nw_name').value.trim();
   const role   = document.getElementById('nw_role').value;
   const filial = document.getElementById('nw_filial').value;
@@ -553,8 +551,7 @@ async function saveWorker() {
   const d = loadData();
   if(d.workers.find(w=>w.login===login)) { document.getElementById('nwErr').textContent='Bu login allaqachon mavjud!'; return; }
 
-  const pinHashed = await hashPin(pin);
-  d.workers.push({id:'w'+Date.now(), login, pin:pinHashed, name, role, filial});
+  d.workers.push({id:'w'+Date.now(), login, pin, name, role, filial});
   saveData(d);
 
   openModal(`<div class="modal-title" style="color:#2dd4a0"><i class="ti ti-circle-check"></i> Yaratildi!</div>
@@ -599,13 +596,12 @@ function editWorker(id) {
     </div>`);
 }
 
-async function updatePin(id) {
+function updatePin(id) {
   const pin = [0,1,2,3,4,5].map(i=>document.getElementById('ep'+i).value).join('');
   if(pin.length!==6) { alert('6 ta raqam kiriting!'); return; }
-  const hashed = await hashPin(pin);
   const d = loadData();
   const w = d.workers.find(x=>x.id===id);
-  if(w) { w.pin=hashed; saveData(d); }
+  if(w) { w.pin=pin; saveData(d); }
   closeModal();
   adminPage('workers');
 }
