@@ -24,7 +24,7 @@ html,body{min-height:100vh;font-family:'DM Sans',sans-serif;background:var(--bg)
 .logo{font-family:'Syne',sans-serif;font-size:28px;font-weight:800;letter-spacing:-1px;text-align:center;margin-bottom:4px}
 .logo span{color:var(--accent2)}
 .logo-sub{font-size:13px;color:var(--text3);text-align:center;margin-bottom:2rem}
-.login-box{background:var(--bg2);border:.5px solid var(--border);border-radius:16px;padding:2rem;width:100%;max-width:360px}
+.login-box{background:var(--bg2);border:.5px solid var(--border);border-radius:16px;padding:1.5rem;width:100%;max-width:400px}
 .login-tabs{display:flex;gap:8px;margin-bottom:1.5rem}
 .ltab{flex:1;padding:8px;border-radius:8px;border:.5px solid var(--border);background:none;cursor:pointer;font-size:13px;color:var(--text2);font-family:'DM Sans',sans-serif;transition:all .2s}
 .ltab.active{background:var(--accent);border-color:var(--accent);color:#fff}
@@ -32,8 +32,8 @@ html,body{min-height:100vh;font-family:'DM Sans',sans-serif;background:var(--bg)
 .form-label{font-size:12px;color:var(--text3);margin-bottom:5px;display:block;text-transform:uppercase;letter-spacing:.05em}
 .form-input{width:100%;background:var(--bg3);border:.5px solid var(--border2);color:var(--text);border-radius:10px;padding:10px 14px;font-size:14px;font-family:'DM Sans',sans-serif;outline:none;transition:border-color .2s}
 .form-input:focus{border-color:var(--accent)}
-.pin-row{display:flex;gap:8px;justify-content:center;margin:8px 0}
-.pin-input{width:48px;height:52px;background:var(--bg3);border:.5px solid var(--border2);color:var(--text);border-radius:10px;font-size:22px;font-weight:700;text-align:center;outline:none;font-family:'Syne',sans-serif;transition:border-color .2s}
+.pin-row{display:flex;gap:6px;justify-content:center;margin:8px 0;flex-wrap:nowrap}
+.pin-input{width:42px;height:48px;background:var(--bg3);border:.5px solid var(--border2);color:var(--text);border-radius:10px;font-size:20px;font-weight:700;text-align:center;outline:none;font-family:'Syne',sans-serif;transition:border-color .2s}
 .pin-input:focus{border-color:var(--accent)}
 .btn-primary{width:100%;background:var(--accent);border:none;color:#fff;border-radius:10px;padding:11px;cursor:pointer;font-size:14px;font-family:'DM Sans',sans-serif;font-weight:500;margin-top:.5rem;transition:opacity .2s}
 .btn-primary:hover{opacity:.88}
@@ -151,17 +151,17 @@ html,body{min-height:100vh;font-family:'DM Sans',sans-serif;background:var(--bg)
     <div id="adminForm">
       <div class="form-group">
         <label class="form-label">Ismingiz</label>
-        <input class="form-input" id="adminLogin" placeholder="Masalan: Sardor">
+        <input class="form-input" id="adminLogin" placeholder="Masalan: Sardor" onkeydown="if(event.key==='Enter')loginAdmin()">
       </div>
       <div class="form-group">
         <label class="form-label">PIN kod (6 ta raqam)</label>
         <div class="pin-row">
-          <input class="pin-input" id="p0" maxlength="1" type="password" inputmode="numeric" oninput="pinNext(0)">
-          <input class="pin-input" id="p1" maxlength="1" type="password" inputmode="numeric" oninput="pinNext(1)">
-          <input class="pin-input" id="p2" maxlength="1" type="password" inputmode="numeric" oninput="pinNext(2)">
-          <input class="pin-input" id="p3" maxlength="1" type="password" inputmode="numeric" oninput="pinNext(3)">
-          <input class="pin-input" id="p4" maxlength="1" type="password" inputmode="numeric" oninput="pinNext(4)">
-          <input class="pin-input" id="p5" maxlength="1" type="password" inputmode="numeric" oninput="pinNext(5)">
+          <input class="pin-input" id="p0" maxlength="1" type="tel" inputmode="numeric" oninput="pinNext(0)" style="-webkit-text-security:disc">
+          <input class="pin-input" id="p1" maxlength="1" type="tel" inputmode="numeric" oninput="pinNext(1)">
+          <input class="pin-input" id="p2" maxlength="1" type="tel" inputmode="numeric" oninput="pinNext(2)" style="-webkit-text-security:disc">
+          <input class="pin-input" id="p3" maxlength="1" type="tel" inputmode="numeric" oninput="pinNext(3)" style="-webkit-text-security:disc">
+          <input class="pin-input" id="p4" maxlength="1" type="tel" inputmode="numeric" oninput="pinNext(4)" style="-webkit-text-security:disc">
+          <input class="pin-input" id="p5" maxlength="1" type="tel" inputmode="numeric" oninput="pinNext(5)" style="-webkit-text-security:disc">
         </div>
       </div>
       <button class="btn-primary" onclick="loginAdmin()">Kirish</button>
@@ -171,17 +171,17 @@ html,body{min-height:100vh;font-family:'DM Sans',sans-serif;background:var(--bg)
     <div id="workerForm" style="display:none">
       <div class="form-group">
         <label class="form-label">Login (rahbar bergan)</label>
-        <input class="form-input" id="workerLogin" placeholder="masalan: alisher_barista">
+        <input class="form-input" id="workerLogin" placeholder="masalan: alisher_barista" onkeydown="if(event.key==='Enter')loginWorker()">
       </div>
       <div class="form-group">
         <label class="form-label">PIN kod</label>
         <div class="pin-row">
-          <input class="pin-input" id="wp0" maxlength="1" type="password" inputmode="numeric" oninput="wPinNext(0)">
-          <input class="pin-input" id="wp1" maxlength="1" type="password" inputmode="numeric" oninput="wPinNext(1)">
-          <input class="pin-input" id="wp2" maxlength="1" type="password" inputmode="numeric" oninput="wPinNext(2)">
-          <input class="pin-input" id="wp3" maxlength="1" type="password" inputmode="numeric" oninput="wPinNext(3)">
-          <input class="pin-input" id="wp4" maxlength="1" type="password" inputmode="numeric" oninput="wPinNext(4)">
-          <input class="pin-input" id="wp5" maxlength="1" type="password" inputmode="numeric" oninput="wPinNext(5)">
+          <input class="pin-input" id="wp0" maxlength="1" type="tel" inputmode="numeric" oninput="wPinNext(0)" style="-webkit-text-security:disc">
+          <input class="pin-input" id="wp1" maxlength="1" type="tel" inputmode="numeric" oninput="wPinNext(1)" style="-webkit-text-security:disc">
+          <input class="pin-input" id="wp2" maxlength="1" type="tel" inputmode="numeric" oninput="wPinNext(2)" style="-webkit-text-security:disc">
+          <input class="pin-input" id="wp3" maxlength="1" type="tel" inputmode="numeric" oninput="wPinNext(3)" style="-webkit-text-security:disc">
+          <input class="pin-input" id="wp4" maxlength="1" type="tel" inputmode="numeric" oninput="wPinNext(4)" style="-webkit-text-security:disc">
+          <input class="pin-input" id="wp5" maxlength="1" type="tel" inputmode="numeric" oninput="wPinNext(5)" style="-webkit-text-security:disc">
         </div>
       </div>
       <button class="btn-primary" onclick="loginWorker()">Kirish</button>
@@ -325,12 +325,14 @@ function switchTab(tab) {
 }
 
 function pinNext(i) {
-  const v = document.getElementById('p'+i).value;
-  if(v && i<5) document.getElementById('p'+(i+1)).focus();
+  const el = document.getElementById('p'+i);
+  el.value = el.value.replace(/[^0-9]/g,'').slice(-1);
+  if(el.value && i<5) document.getElementById('p'+(i+1)).focus();
 }
 function wPinNext(i) {
-  const v = document.getElementById('wp'+i).value;
-  if(v && i<5) document.getElementById('wp'+(i+1)).focus();
+  const el = document.getElementById('wp'+i);
+  el.value = el.value.replace(/[^0-9]/g,'').slice(-1);
+  if(el.value && i<5) document.getElementById('wp'+(i+1)).focus();
 }
 
 function getPin(prefix) {
