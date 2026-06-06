@@ -408,31 +408,26 @@ function adminPage(id) {
 
 function adminDashboard() {
   const d = loadData();
-  const today = new Date().toLocaleDateString('uz-UZ');
+  const now = new Date();
+  const today = `${now.getDate().toString().padStart(2,'0')}.${(now.getMonth()+1).toString().padStart(2,'0')}.${now.getFullYear()}`;
   const todayReports = d.reports.filter(r=>r.date===today);
   const pending = todayReports.filter(r=>r.status==='pending').length;
   const approved = todayReports.filter(r=>r.status==='approved').length;
+  const rejected = todayReports.filter(r=>r.status==='rejected').length;
   return `<div class="page-title">Dashboard</div>
   <div class="page-sub">${today}</div>
   <div class="metrics">
-    <div class="metric"><div class="metric-lbl">Jami ishchilar</div><div class="metric-val">${d.workers.length}</div><div class="metric-sub">Ro'yxatdagi</div></div>
-    <div class="metric"><div class="metric-lbl">Bugungi hisobot</div><div class="metric-val">${todayReports.length}</div><div class="metric-sub">Topshirilgan</div></div>
-    <div class="metric"><div class="metric-lbl">Kutilmoqda</div><div class="metric-val" style="color:#f5a623">${pending}</div><div class="metric-sub">Tasdiqlanmagan</div></div>
-    <div class="metric"><div class="metric-lbl">Tasdiqlangan</div><div class="metric-val" style="color:#2dd4a0">${approved}</div><div class="metric-sub">Bugun</div></div>
+    <div class="metric" style="cursor:pointer" onclick="adminPage('workers')"><div class="metric-lbl">Jami ishchilar</div><div class="metric-val">${d.workers.length}</div><div class="metric-sub">Ro'yxatdagi</div></div>
+    <div class="metric" style="cursor:pointer" onclick="adminPage('reports')"><div class="metric-lbl">Bugungi hisobot</div><div class="metric-val">${todayReports.length}</div><div class="metric-sub" style="color:${todayReports.length>0?'#a89eff':''}">${todayReports.length>0?'Ko'\''rishga bosing':'Hali yo'\''q'}</div></div>
+    <div class="metric" style="cursor:pointer" onclick="adminPage('reports')"><div class="metric-lbl">Kutilmoqda</div><div class="metric-val" style="color:${pending>0?'#f5a623':''}">${pending}</div><div class="metric-sub" style="color:${pending>0?'#f5a623':''}">${pending>0?'Tasdiqlanmagan':'Hammasi ko'\''rilgan'}</div></div>
+    <div class="metric" style="cursor:pointer" onclick="adminPage('reports')"><div class="metric-lbl">Tasdiqlangan</div><div class="metric-val" style="color:${approved>0?'#2dd4a0':''}">${approved}</div><div class="metric-sub" style="color:${approved>0?'#2dd4a0':''}">${approved>0?'Bugun':'Hali yo'\''q'}</div></div>
   </div>
   <div class="card">
-    <div class="card-head"><div class="card-title"><i class="ti ti-clock"></i>Kutilayotgan hisobotlar</div><button class="btn-sm" onclick="adminPage('reports')">Barchasi <i class="ti ti-arrow-right"></i></button></div>
-    ${pending===0
-      ? `<div style="text-align:center;padding:1.5rem;color:var(--text3);font-size:14px"><i class="ti ti-circle-check" style="font-size:24px;display:block;margin-bottom:8px;color:#2dd4a0"></i>Barcha hisobotlar tasdiqlangan!</div>`
-      : `<table class="tbl"><thead><tr><th>Ishchi</th><th>Lavozim</th><th>Vaqt</th><th>Amal</th></tr></thead><tbody>
-      ${todayReports.filter(r=>r.status==='pending').map(r=>`
-      <tr>
-        <td><b>${r.workerName}</b></td>
-        <td><span class="badge b-blue">${ROLE_LABELS[r.role]||r.role}</span></td>
-        <td style="color:var(--text3)">${r.time}</td>
-        <td><button class="btn-success" onclick="viewReport('${r.id}')"><i class="ti ti-eye"></i> Ko'rish</button></td>
-      </tr>`).join('')}
-      </tbody></table>`
+    <div class="card-head"><div class="card-title"><i class="ti ti-clock"></i>Kutilayotgan hisobotlar ${pending>0?'<span class="badge b-amber" style="margin-left:6px">'+pending+'</span>':''}</div><button class="btn-sm" onclick="adminPage('reports')">Barchasi <i class="ti ti-arrow-right"></i></button></div>
+    ${d.reports.filter(r=>r.status==='pending').length===0
+      ? '<div style="text-align:center;padding:1.5rem;color:var(--text3);font-size:14px"><i class="ti ti-circle-check" style="font-size:24px;display:block;margin-bottom:8px;color:#2dd4a0"></i>Barcha hisobotlar tasdiqlangan!</div>'
+      : '<table class="tbl"><thead><tr><th>Ishchi</th><th>Lavozim</th><th>Sana</th><th>Vazifalar</th><th>Amal</th></tr></thead><tbody>'+
+        d.reports.filter(r=>r.status==='pending').reverse().map(r=>'<tr><td><b>'+r.workerName+'</b><div style="font-size:11px;color:var(--text3)">'+r.filial+'</div></td><td><span class="badge b-blue">'+( ROLE_LABELS[r.role]||r.role)+'</span></td><td style="color:var(--text3);font-size:12px">'+r.date+' · '+r.time+'</td><td><span class="badge '+( r.dutyPct>=80?'b-green':r.dutyPct>=50?'b-amber':'b-red')+'">'+r.dutyDone+'/'+r.dutyTotal+'</span></td><td><button class="btn-success" onclick="viewReport(\''+ r.id +'\'')" ><i class="ti ti-eye"></i> Ko\'rish</button></td></tr>').join('') +'</tbody></table>'
     }
   </div>`;
 }
