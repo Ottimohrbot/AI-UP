@@ -3,868 +3,661 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ottimo — Boshqaruv tizimi</title>
+<title>Ottimo Tizim</title>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
 <style>
-:root{
-  --bg:#0a0a0f;--bg2:#111118;--bg3:#18181f;
-  --border:rgba(255,255,255,0.07);--border2:rgba(255,255,255,0.14);
-  --text:#f0eff8;--text2:rgba(240,239,248,0.55);--text3:rgba(240,239,248,0.28);
-  --accent:#7c6fff;--accent2:#a89eff;
-  --green:#1D9E75;--red:#E24B4A;--amber:#BA7517;
-}
 *{box-sizing:border-box;margin:0;padding:0}
-html,body{min-height:100vh;font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text)}
+html,body{min-height:100vh;font-family:'DM Sans',sans-serif;background:#0a0a0f;color:#f0eff8}
 .screen{display:none}
 .screen.active{display:flex;flex-direction:column;min-height:100vh}
-
 /* LOGIN */
-#s-login{align-items:center;justify-content:center;padding:2rem}
-.logo{font-family:'Syne',sans-serif;font-size:28px;font-weight:800;letter-spacing:-1px;text-align:center;margin-bottom:4px}
-.logo span{color:var(--accent2)}
-.logo-sub{font-size:13px;color:var(--text3);text-align:center;margin-bottom:2rem}
-.login-box{background:var(--bg2);border:.5px solid var(--border);border-radius:16px;padding:2rem;width:100%;max-width:360px}
-.login-tabs{display:flex;gap:8px;margin-bottom:1.5rem}
-.ltab{flex:1;padding:8px;border-radius:8px;border:.5px solid var(--border);background:none;cursor:pointer;font-size:13px;color:var(--text2);font-family:'DM Sans',sans-serif;transition:all .2s}
-.ltab.active{background:var(--accent);border-color:var(--accent);color:#fff}
-.form-group{margin-bottom:1rem}
-.form-label{font-size:12px;color:var(--text3);margin-bottom:5px;display:block;text-transform:uppercase;letter-spacing:.05em}
-.form-input{width:100%;background:var(--bg3);border:.5px solid var(--border2);color:var(--text);border-radius:10px;padding:10px 14px;font-size:14px;font-family:'DM Sans',sans-serif;outline:none;transition:border-color .2s}
-.form-input:focus{border-color:var(--accent)}
-.pin-row{display:flex;gap:8px;justify-content:center;margin:8px 0}
-.pin-input{width:48px;height:52px;background:var(--bg3);border:.5px solid var(--border2);color:var(--text);border-radius:10px;font-size:22px;font-weight:700;text-align:center;outline:none;font-family:'Syne',sans-serif;transition:border-color .2s}
-.pin-input:focus{border-color:var(--accent)}
-.btn-primary{width:100%;background:var(--accent);border:none;color:#fff;border-radius:10px;padding:11px;cursor:pointer;font-size:14px;font-family:'DM Sans',sans-serif;font-weight:500;margin-top:.5rem;transition:opacity .2s}
-.btn-primary:hover{opacity:.88}
-.err-msg{font-size:12px;color:#ff8080;text-align:center;margin-top:.5rem;min-height:16px}
-
+#sLogin{align-items:center;justify-content:center;padding:2rem}
+.logo{font-family:'Syne',sans-serif;font-size:26px;font-weight:800;letter-spacing:-1px;text-align:center;margin-bottom:4px}
+.logo span{color:#a89eff}
+.logo-sub{font-size:13px;color:rgba(240,239,248,.3);text-align:center;margin-bottom:2rem}
+.lbox{background:#111118;border:.5px solid rgba(255,255,255,.07);border-radius:16px;padding:1.5rem;width:100%;max-width:380px}
+.ltabs{display:flex;gap:8px;margin-bottom:1.25rem}
+.ltab{flex:1;padding:8px;border-radius:8px;border:.5px solid rgba(255,255,255,.07);background:none;cursor:pointer;font-size:13px;color:rgba(240,239,248,.5);font-family:'DM Sans',sans-serif;transition:all .2s}
+.ltab.active{background:#7c6fff;border-color:#7c6fff;color:#fff}
+.flabel{font-size:11px;color:rgba(240,239,248,.3);margin-bottom:5px;display:block;text-transform:uppercase;letter-spacing:.05em}
+.finput{width:100%;background:#18181f;border:.5px solid rgba(255,255,255,.14);color:#f0eff8;border-radius:10px;padding:10px 14px;font-size:14px;font-family:'DM Sans',sans-serif;outline:none;margin-bottom:1rem}
+.finput:focus{border-color:#7c6fff}
+.pinrow{display:flex;gap:6px;justify-content:center;margin-bottom:1rem}
+.pininp{width:44px;height:50px;background:#18181f;border:.5px solid rgba(255,255,255,.14);color:#f0eff8;border-radius:10px;font-size:20px;font-weight:700;text-align:center;outline:none;font-family:'Syne',sans-serif}
+.pininp:focus{border-color:#7c6fff}
+.btnprimary{width:100%;background:#7c6fff;border:none;color:#fff;border-radius:10px;padding:11px;cursor:pointer;font-size:14px;font-family:'DM Sans',sans-serif;font-weight:500}
+.btnprimary:hover{opacity:.88}
+.errmsg{font-size:12px;color:#ff8080;text-align:center;margin-top:.5rem;min-height:16px}
 /* TOPBAR */
-.topbar{display:flex;align-items:center;justify-content:space-between;padding:.875rem 1.25rem;background:var(--bg2);border-bottom:.5px solid var(--border);position:sticky;top:0;z-index:50}
-.tbar-l{display:flex;align-items:center;gap:10px}
-.tbar-logo{font-family:'Syne',sans-serif;font-size:17px;font-weight:800;letter-spacing:-.5px}
-.tbar-logo span{color:var(--accent2)}
-.rbadge{font-size:11px;font-weight:500;padding:3px 10px;border-radius:99px}
-.logout-btn{background:none;border:.5px solid var(--border);border-radius:8px;padding:5px 12px;cursor:pointer;font-size:12px;color:var(--text2)}
-.logout-btn:hover{border-color:var(--border2);color:var(--text)}
-
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:.875rem 1.25rem;background:#111118;border-bottom:.5px solid rgba(255,255,255,.07);position:sticky;top:0;z-index:50}
+.tlogo{font-family:'Syne',sans-serif;font-size:16px;font-weight:800;letter-spacing:-.5px}
+.tlogo span{color:#a89eff}
+.rbadge{font-size:11px;font-weight:500;padding:3px 10px;border-radius:99px;margin-left:8px}
+.logoutbtn{background:none;border:.5px solid rgba(255,255,255,.07);border-radius:8px;padding:5px 12px;cursor:pointer;font-size:12px;color:rgba(240,239,248,.5)}
 /* LAYOUT */
-.portal-main{display:flex;flex:1}
-.sidebar{width:210px;background:var(--bg2);border-right:.5px solid var(--border);padding:1rem 0;flex-shrink:0}
-.nav-section{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--text3);padding:1rem 1.25rem .4rem;font-weight:500}
-.nav-item{display:flex;align-items:center;gap:10px;padding:9px 1.25rem;cursor:pointer;font-size:13px;color:var(--text2);border-left:2px solid transparent;transition:all .15s}
-.nav-item:hover{background:var(--bg3);color:var(--text)}
-.nav-item.active{color:var(--text);border-left-color:var(--accent2);background:var(--bg3)}
-.nav-item i{font-size:17px}
-.content{flex:1;padding:1.5rem;overflow-y:auto;max-width:900px}
-
+.pmain{display:flex;flex:1}
+.sidebar{width:200px;background:#111118;border-right:.5px solid rgba(255,255,255,.07);padding:1rem 0;flex-shrink:0}
+.navitem{display:flex;align-items:center;gap:10px;padding:9px 1.25rem;cursor:pointer;font-size:13px;color:rgba(240,239,248,.5);border-left:2px solid transparent;transition:all .15s}
+.navitem:hover{background:#18181f;color:#f0eff8}
+.navitem.active{color:#f0eff8;border-left-color:#a89eff;background:#18181f}
+.navitem i{font-size:17px}
+.content{flex:1;padding:1.5rem;overflow-y:auto}
 /* CARDS */
-.page-title{font-family:'Syne',sans-serif;font-size:20px;font-weight:700;letter-spacing:-.5px;margin-bottom:.25rem}
-.page-sub{font-size:13px;color:var(--text3);margin-bottom:1.5rem}
-.card{background:var(--bg2);border:.5px solid var(--border);border-radius:14px;padding:1.25rem;margin-bottom:1rem}
-.card-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem}
-.card-title{font-size:14px;font-weight:500;color:var(--text);display:flex;align-items:center;gap:8px}
-.card-title i{color:var(--accent2)}
+.ptitle{font-family:'Syne',sans-serif;font-size:20px;font-weight:700;letter-spacing:-.5px;margin-bottom:.25rem}
+.psub{font-size:13px;color:rgba(240,239,248,.3);margin-bottom:1.5rem}
+.card{background:#111118;border:.5px solid rgba(255,255,255,.07);border-radius:14px;padding:1.25rem;margin-bottom:1rem}
+.cardhead{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem}
+.cardtitle{font-size:14px;font-weight:500;color:#f0eff8;display:flex;align-items:center;gap:8px}
+.cardtitle i{color:#a89eff}
 .metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-bottom:1rem}
-.metric{background:var(--bg2);border:.5px solid var(--border);border-radius:12px;padding:1rem}
-.metric-lbl{font-size:11px;color:var(--text3);margin-bottom:4px;text-transform:uppercase;letter-spacing:.05em}
-.metric-val{font-size:24px;font-weight:500}
-.metric-sub{font-size:11px;color:var(--text2);margin-top:3px}
-
+.metric{background:#111118;border:.5px solid rgba(255,255,255,.07);border-radius:12px;padding:1rem}
+.mlbl{font-size:11px;color:rgba(240,239,248,.3);margin-bottom:4px;text-transform:uppercase;letter-spacing:.05em}
+.mval{font-size:24px;font-weight:500}
+.msub{font-size:11px;color:rgba(240,239,248,.5);margin-top:3px}
 /* BADGE */
 .badge{display:inline-block;font-size:11px;padding:3px 9px;border-radius:99px;font-weight:500}
-.b-green{background:rgba(29,158,117,.15);color:#2dd4a0}
-.b-red{background:rgba(226,75,74,.15);color:#ff8080}
-.b-amber{background:rgba(186,117,23,.15);color:#f5a623}
-.b-blue{background:rgba(124,111,255,.15);color:#a89eff}
-.b-gray{background:rgba(255,255,255,.07);color:var(--text2)}
-
+.bgreen{background:rgba(29,158,117,.15);color:#2dd4a0}
+.bred{background:rgba(226,75,74,.15);color:#ff8080}
+.bamber{background:rgba(186,117,23,.15);color:#f5a623}
+.bblue{background:rgba(124,111,255,.15);color:#a89eff}
+.bgray{background:rgba(255,255,255,.07);color:rgba(240,239,248,.5)}
 /* TABLE */
 .tbl{width:100%;border-collapse:collapse;font-size:13px}
-.tbl th{text-align:left;padding:8px 10px;color:var(--text3);font-size:11px;font-weight:500;border-bottom:.5px solid var(--border)}
-.tbl td{padding:10px 10px;border-bottom:.5px solid var(--border);vertical-align:top}
+.tbl th{text-align:left;padding:8px 10px;color:rgba(240,239,248,.3);font-size:11px;font-weight:500;border-bottom:.5px solid rgba(255,255,255,.07)}
+.tbl td{padding:10px 10px;border-bottom:.5px solid rgba(255,255,255,.05)}
 .tbl tr:last-child td{border-bottom:none}
-.tbl tr:hover td{background:rgba(255,255,255,.02)}
-
-/* BTN */
-.btn-sm{background:none;border:.5px solid var(--border2);border-radius:8px;padding:5px 12px;cursor:pointer;font-size:12px;color:var(--text2);display:inline-flex;align-items:center;gap:5px;transition:all .15s;font-family:'DM Sans',sans-serif}
-.btn-sm:hover{border-color:var(--accent);color:var(--accent2)}
-.btn-accent{background:var(--accent);border:none;color:#fff;border-radius:8px;padding:6px 14px;cursor:pointer;font-size:12px;display:inline-flex;align-items:center;gap:5px;font-family:'DM Sans',sans-serif}
-.btn-danger{background:rgba(226,75,74,.15);border:.5px solid rgba(226,75,74,.3);color:#ff8080;border-radius:8px;padding:5px 12px;cursor:pointer;font-size:12px;display:inline-flex;align-items:center;gap:5px;font-family:'DM Sans',sans-serif}
-.btn-success{background:rgba(29,158,117,.15);border:.5px solid rgba(29,158,117,.3);color:#2dd4a0;border-radius:8px;padding:5px 12px;cursor:pointer;font-size:12px;display:inline-flex;align-items:center;gap:5px;font-family:'DM Sans',sans-serif}
-
+/* BTNS */
+.btnsm{background:none;border:.5px solid rgba(255,255,255,.14);border-radius:8px;padding:5px 12px;cursor:pointer;font-size:12px;color:rgba(240,239,248,.5);display:inline-flex;align-items:center;gap:5px;font-family:'DM Sans',sans-serif;transition:all .15s}
+.btnsm:hover{border-color:#a89eff;color:#a89eff}
+.btnacc{background:#7c6fff;border:none;color:#fff;border-radius:8px;padding:6px 14px;cursor:pointer;font-size:12px;display:inline-flex;align-items:center;gap:5px;font-family:'DM Sans',sans-serif}
+.btndanger{background:rgba(226,75,74,.15);border:.5px solid rgba(226,75,74,.3);color:#ff8080;border-radius:8px;padding:5px 12px;cursor:pointer;font-size:12px;display:inline-flex;align-items:center;gap:5px;font-family:'DM Sans',sans-serif}
+.btnsuccess{background:rgba(29,158,117,.15);border:.5px solid rgba(29,158,117,.3);color:#2dd4a0;border-radius:8px;padding:5px 12px;cursor:pointer;font-size:12px;display:inline-flex;align-items:center;gap:5px;font-family:'DM Sans',sans-serif}
 /* MODAL */
-.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:200;display:none;align-items:center;justify-content:center;backdrop-filter:blur(4px)}
-.modal-overlay.active{display:flex}
-.modal{background:var(--bg2);border:.5px solid var(--border2);border-radius:16px;padding:1.5rem;width:min(460px,92vw);max-height:85vh;overflow-y:auto}
-.modal-title{font-family:'Syne',sans-serif;font-size:18px;font-weight:700;letter-spacing:-.5px;margin-bottom:1.25rem}
-.modal-form .form-group{margin-bottom:.875rem}
-.modal-form .form-label{font-size:12px;color:var(--text3);margin-bottom:5px;display:block}
-.modal-form .form-input,.modal-form .form-select{width:100%;background:var(--bg3);border:.5px solid var(--border2);color:var(--text);border-radius:10px;padding:10px 14px;font-size:14px;font-family:'DM Sans',sans-serif;outline:none}
-.modal-form .form-select option{background:var(--bg2)}
-.modal-btns{display:flex;gap:8px;justify-content:flex-end;margin-top:1.25rem}
-
-/* HISOBOT DETAIL */
-.hd-section{margin-bottom:1rem}
-.hd-label{font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:.05em;margin-bottom:.5rem}
-.hd-value{font-size:14px;color:var(--text);line-height:1.6}
-.duty-line{display:flex;align-items:center;gap:8px;padding:5px 0;font-size:13px}
-.duty-line i{font-size:14px}
-
-/* ISHCHI HISOBOT */
-.step-dots{display:flex;gap:6px;margin-bottom:1.5rem}
-.sdot{flex:1;height:4px;border-radius:2px;background:var(--border2);transition:background .3s}
-.sdot.done{background:var(--accent)}
-.sdot.active{background:var(--accent2)}
-.chk{width:22px;height:22px;border-radius:6px;border:.5px solid var(--border2);cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .15s}
-.chk.done{background:var(--green);border-color:var(--green);color:#fff}
-.duty-item{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:.5px solid var(--border)}
-.duty-item:last-child{border-bottom:none}
-.duty-name{font-size:14px;color:var(--text);transition:color .2s}
-.duty-name.done{text-decoration:line-through;color:var(--text3)}
-.duty-time{font-size:11px;color:var(--text3);margin-top:2px}
-.form-textarea{width:100%;background:var(--bg3);border:.5px solid var(--border2);color:var(--text);border-radius:10px;padding:10px 14px;font-size:14px;font-family:'DM Sans',sans-serif;outline:none;resize:vertical;min-height:80px;line-height:1.6}
-.rating-row{display:flex;gap:8px}
-.rating-btn{flex:1;background:var(--bg3);border:.5px solid var(--border2);color:var(--text2);border-radius:8px;padding:8px 4px;cursor:pointer;font-size:12px;text-align:center;transition:all .2s;font-family:'DM Sans',sans-serif}
-.rating-btn.active{border-color:var(--accent);background:rgba(124,111,255,.15);color:var(--accent2)}
-.prog-wrap{margin-bottom:1rem}
-.prog-top{display:flex;justify-content:space-between;font-size:12px;color:var(--text2);margin-bottom:5px}
-.prog-bar{height:6px;background:rgba(255,255,255,.07);border-radius:3px;overflow:hidden}
-.prog-fill{height:100%;border-radius:3px;background:var(--accent);transition:width .4s}
-.success-box{text-align:center;padding:2rem 1rem}
-.success-icon{width:64px;height:64px;border-radius:50%;background:rgba(29,158,117,.15);display:flex;align-items:center;justify-content:center;font-size:32px;color:#2dd4a0;margin:0 auto 1rem}
-
+.moverlay{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:200;display:none;align-items:center;justify-content:center;backdrop-filter:blur(4px)}
+.moverlay.active{display:flex}
+.mbox{background:#111118;border:.5px solid rgba(255,255,255,.14);border-radius:16px;padding:1.5rem;width:min(460px,92vw);max-height:85vh;overflow-y:auto}
+.mtitle{font-family:'Syne',sans-serif;font-size:18px;font-weight:700;letter-spacing:-.5px;margin-bottom:1.25rem}
+/* WORKER FLOW */
+.sdots{display:flex;gap:6px;margin-bottom:1.5rem}
+.sdot{flex:1;height:4px;border-radius:2px;background:rgba(255,255,255,.1)}
+.sdot.done{background:#7c6fff}
+.sdot.active{background:#a89eff}
+.chk{width:22px;height:22px;border-radius:6px;border:.5px solid rgba(255,255,255,.14);cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .15s}
+.chk.done{background:#1D9E75;border-color:#1D9E75;color:#fff}
+.dutyitem{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:.5px solid rgba(255,255,255,.07)}
+.dutyitem:last-child{border-bottom:none}
+.dname{font-size:14px;color:#f0eff8}
+.dname.done{text-decoration:line-through;color:rgba(240,239,248,.3)}
+.dtime{font-size:11px;color:rgba(240,239,248,.3);margin-top:2px}
+.fgroup{margin-bottom:1rem}
+.fta{width:100%;background:#18181f;border:.5px solid rgba(255,255,255,.14);color:#f0eff8;border-radius:10px;padding:10px 14px;font-size:14px;font-family:'DM Sans',sans-serif;outline:none;resize:vertical;min-height:80px}
+.ratingrow{display:flex;gap:8px}
+.rbtn{flex:1;background:#18181f;border:.5px solid rgba(255,255,255,.14);color:rgba(240,239,248,.5);border-radius:8px;padding:8px 4px;cursor:pointer;font-size:12px;text-align:center;transition:all .2s;font-family:'DM Sans',sans-serif}
+.rbtn.active{border-color:#7c6fff;background:rgba(124,111,255,.15);color:#a89eff}
+.progwrap{margin-bottom:1rem}
+.progtop{display:flex;justify-content:space-between;font-size:12px;color:rgba(240,239,248,.5);margin-bottom:5px}
+.progbar{height:6px;background:rgba(255,255,255,.07);border-radius:3px;overflow:hidden}
+.progfill{height:100%;border-radius:3px;background:#7c6fff;transition:width .4s}
+.successbox{text-align:center;padding:2rem 1rem}
+.successicon{width:64px;height:64px;border-radius:50%;background:rgba(29,158,117,.15);display:flex;align-items:center;justify-content:center;font-size:32px;color:#2dd4a0;margin:0 auto 1rem}
 @media(max-width:640px){.sidebar{display:none}.content{padding:1rem}}
 </style>
 </head>
 <body>
 
-<!-- LOGIN -->
-<div id="s-login" class="screen active">
+<div id="sLogin" class="screen active">
   <div class="logo">Ottimo <span>Tizim</span></div>
   <div class="logo-sub">Boshqaruv va hisobot platformasi</div>
-  <div class="login-box">
-    <div class="login-tabs">
-      <button class="ltab active" onclick="switchTab('admin')"><i class="ti ti-shield" style="font-size:13px;vertical-align:-1px"></i> Rahbar</button>
-      <button class="ltab" onclick="switchTab('worker')"><i class="ti ti-user" style="font-size:13px;vertical-align:-1px"></i> Ishchi</button>
+  <div class="lbox">
+    <div class="ltabs">
+      <button class="ltab active" id="tab0" onclick="switchTab(0)"><i class="ti ti-shield" style="font-size:13px;vertical-align:-1px"></i> Rahbar</button>
+      <button class="ltab" id="tab1" onclick="switchTab(1)"><i class="ti ti-user" style="font-size:13px;vertical-align:-1px"></i> Ishchi</button>
     </div>
-    <div id="adminForm">
-      <div class="form-group">
-        <label class="form-label">Ismingiz</label>
-        <input class="form-input" id="adminLogin" placeholder="Masalan: Sardor">
+    <!-- ADMIN FORM -->
+    <div id="formAdmin">
+      <label class="flabel">Ismingiz</label>
+      <input class="finput" id="aName" placeholder="Masalan: Sardor" autocomplete="off">
+      <label class="flabel">PIN kod (6 ta raqam)</label>
+      <div class="pinrow">
+        <input class="pininp" id="a0" maxlength="1" inputmode="numeric" oninput="pn(this,'a',0)">
+        <input class="pininp" id="a1" maxlength="1" inputmode="numeric" oninput="pn(this,'a',1)">
+        <input class="pininp" id="a2" maxlength="1" inputmode="numeric" oninput="pn(this,'a',2)">
+        <input class="pininp" id="a3" maxlength="1" inputmode="numeric" oninput="pn(this,'a',3)">
+        <input class="pininp" id="a4" maxlength="1" inputmode="numeric" oninput="pn(this,'a',4)">
+        <input class="pininp" id="a5" maxlength="1" inputmode="numeric" oninput="pn(this,'a',5)">
       </div>
-      <div class="form-group">
-        <label class="form-label">PIN kod (6 ta raqam)</label>
-        <div class="pin-row">
-          <input class="pin-input" id="p0" maxlength="1" type="password" inputmode="numeric" oninput="pinNext(0)">
-          <input class="pin-input" id="p1" maxlength="1" type="password" inputmode="numeric" oninput="pinNext(1)">
-          <input class="pin-input" id="p2" maxlength="1" type="password" inputmode="numeric" oninput="pinNext(2)">
-          <input class="pin-input" id="p3" maxlength="1" type="password" inputmode="numeric" oninput="pinNext(3)">
-          <input class="pin-input" id="p4" maxlength="1" type="password" inputmode="numeric" oninput="pinNext(4)">
-          <input class="pin-input" id="p5" maxlength="1" type="password" inputmode="numeric" oninput="pinNext(5)">
-        </div>
-      </div>
-      <button class="btn-primary" onclick="loginAdmin()">Kirish</button>
-      <div class="err-msg" id="adminErr"></div>
-      
+      <button class="btnprimary" onclick="loginAdmin()">Kirish</button>
+      <div class="errmsg" id="aErr"></div>
     </div>
-    <div id="workerForm" style="display:none">
-      <div class="form-group">
-        <label class="form-label">Login (rahbar bergan)</label>
-        <input class="form-input" id="workerLogin" placeholder="masalan: alisher_barista">
+    <!-- WORKER FORM -->
+    <div id="formWorker" style="display:none">
+      <label class="flabel">Login</label>
+      <input class="finput" id="wLogin" placeholder="masalan: alisher_barista" autocomplete="off">
+      <label class="flabel">PIN kod (6 ta raqam)</label>
+      <div class="pinrow">
+        <input class="pininp" id="w0" maxlength="1" inputmode="numeric" oninput="pn(this,'w',0)">
+        <input class="pininp" id="w1" maxlength="1" inputmode="numeric" oninput="pn(this,'w',1)">
+        <input class="pininp" id="w2" maxlength="1" inputmode="numeric" oninput="pn(this,'w',2)">
+        <input class="pininp" id="w3" maxlength="1" inputmode="numeric" oninput="pn(this,'w',3)">
+        <input class="pininp" id="w4" maxlength="1" inputmode="numeric" oninput="pn(this,'w',4)">
+        <input class="pininp" id="w5" maxlength="1" inputmode="numeric" oninput="pn(this,'w',5)">
       </div>
-      <div class="form-group">
-        <label class="form-label">PIN kod</label>
-        <div class="pin-row">
-          <input class="pin-input" id="wp0" maxlength="1" type="password" inputmode="numeric" oninput="wPinNext(0)">
-          <input class="pin-input" id="wp1" maxlength="1" type="password" inputmode="numeric" oninput="wPinNext(1)">
-          <input class="pin-input" id="wp2" maxlength="1" type="password" inputmode="numeric" oninput="wPinNext(2)">
-          <input class="pin-input" id="wp3" maxlength="1" type="password" inputmode="numeric" oninput="wPinNext(3)">
-          <input class="pin-input" id="wp4" maxlength="1" type="password" inputmode="numeric" oninput="wPinNext(4)">
-          <input class="pin-input" id="wp5" maxlength="1" type="password" inputmode="numeric" oninput="wPinNext(5)">
-        </div>
-      </div>
-      <button class="btn-primary" onclick="loginWorker()">Kirish</button>
-      <div class="err-msg" id="workerErr"></div>
+      <button class="btnprimary" onclick="loginWorker()">Kirish</button>
+      <div class="errmsg" id="wErr"></div>
     </div>
   </div>
 </div>
 
-<!-- ADMIN PORTAL -->
-<div id="s-admin" class="screen">
+<!-- ADMIN -->
+<div id="sAdmin" class="screen">
   <div class="topbar">
-    <div class="tbar-l">
-      <div class="tbar-logo">Ottimo <span>Admin</span></div>
-      <span class="rbadge" style="background:rgba(124,111,255,.2);color:#a89eff" id="adminNameBadge">Rahbar</span>
+    <div style="display:flex;align-items:center">
+      <div class="tlogo">Ottimo <span>Admin</span></div>
+      <span class="rbadge" id="adminBadge" style="background:rgba(124,111,255,.2);color:#a89eff"></span>
     </div>
-    <button class="logout-btn" onclick="logout()"><i class="ti ti-logout" style="font-size:13px"></i> Chiqish</button>
+    <button class="logoutbtn" onclick="logout()"><i class="ti ti-logout" style="font-size:13px"></i> Chiqish</button>
   </div>
-  <div class="portal-main">
+  <div class="pmain">
     <div class="sidebar">
-      <div class="nav-section">Boshqaruv</div>
-      <div class="nav-item active" onclick="adminPage('dashboard')" id="anav_dashboard"><i class="ti ti-home"></i>Dashboard</div>
-      <div class="nav-item" onclick="adminPage('reports')" id="anav_reports"><i class="ti ti-file-description"></i>Hisobotlar</div>
-      <div class="nav-item" onclick="adminPage('workers')" id="anav_workers"><i class="ti ti-users"></i>Ishchilar</div>
-      <div class="nav-item" onclick="adminPage('add_worker')" id="anav_add_worker"><i class="ti ti-user-plus"></i>Login yaratish</div>
+      <div id="adminNav"></div>
     </div>
-    <div class="content" id="adminContent"></div>
+    <div class="content" id="adminContent" style="max-width:860px"></div>
   </div>
 </div>
 
-<!-- WORKER PORTAL -->
-<div id="s-worker" class="screen">
+<!-- WORKER -->
+<div id="sWorker" class="screen">
   <div class="topbar">
-    <div class="tbar-l">
-      <div class="tbar-logo">Ottimo <span>Hisobot</span></div>
+    <div style="display:flex;align-items:center">
+      <div class="tlogo">Ottimo <span>Hisobot</span></div>
       <span class="rbadge" id="workerBadge"></span>
     </div>
-    <button class="logout-btn" onclick="logout()"><i class="ti ti-logout" style="font-size:13px"></i> Chiqish</button>
+    <button class="logoutbtn" onclick="logout()"><i class="ti ti-logout" style="font-size:13px"></i> Chiqish</button>
   </div>
-  <div class="content" style="max-width:640px;margin:0 auto;padding:1.5rem" id="workerContent"></div>
+  <div class="content" id="workerContent" style="max-width:620px;margin:0 auto"></div>
 </div>
 
 <!-- MODAL -->
-<div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
-  <div class="modal" id="modalBox">
-    <div id="modalContent"></div>
-  </div>
+<div class="moverlay" id="moverlay" onclick="if(event.target===this)closeMod()">
+  <div class="mbox"><div id="mcontent"></div></div>
 </div>
 
 <script>
-// ══════════════════════════════
-// DATA STORE (localStorage)
-// ══════════════════════════════
-// Admin PIN hash (PIN ochiq ko'rinmaydi)
-const ADMIN_HASH = '5be891405b2936ae37f0ed8d8d78fb4bb05128977b0fdb36247d82271fde1999';
-async function hashPin(pin){const buf=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(pin));return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');}
-const STORE_KEY = 'ottimo_data';
+var STORE = 'ottimo_v2';
+var APIN = [6,8,8,4,6,6];
+var BOT = '8970482071:AAEy6xthMW1btri3XBo7F4M8ySzZdwMudFM';
+var CID = '6613741078';
+var NOW = new Date();
+var TODAY = ('0'+NOW.getDate()).slice(-2)+'.'+('0'+(NOW.getMonth()+1)).slice(-2)+'.'+NOW.getFullYear();
+var NOWT = ('0'+NOW.getHours()).slice(-2)+':'+('0'+NOW.getMinutes()).slice(-2);
+var curWorker = null;
+var adminName = '';
+var wStep=0, wDuties={}, wForm={}, wRating=0;
 
-function loadData() {
-  try {
-    return JSON.parse(localStorage.getItem(STORE_KEY)) || {workers:[], reports:[]};
-  } catch { return {workers:[], reports:[]}; }
-}
-
-function saveData(d) {
-  localStorage.setItem(STORE_KEY, JSON.stringify(d));
-}
-
-function initDemo(){} initDemo();
-
-// ══════════════════════════════
-// DUTIES per role
-// ══════════════════════════════
-const DUTIES = {
-  hr:[
-    {n:'Davomat hisobotini tekshirish',t:'09:00',p:'b-red'},
-    {n:'Kech qolganlar ro\'yxatini yuborish',t:'09:30',p:'b-red'},
-    {n:'Yangi ariza ko\'rib chiqish',t:'10:00',p:'b-amber'},
-    {n:'Oylik jarima hisobotini yangilash',t:'11:00',p:'b-amber'},
-    {n:'Xodimlar bilan uchrashuv',t:'14:00',p:'b-blue'},
-    {n:'Kunlik yakunni yuborish',t:'18:30',p:'b-amber'},
-  ],
-  manager:[
-    {n:'Xodimlar briefingi',t:'09:00',p:'b-red'},
-    {n:'Savdo raqamlarini tekshirish',t:'09:30',p:'b-red'},
-    {n:'Yetkazib beruvchi bilan uchrashuv',t:'11:00',p:'b-amber'},
-    {n:'Haftalik xarajatlar hisoboti',t:'14:00',p:'b-amber'},
-    {n:'Filial audit',t:'15:30',p:'b-blue'},
-    {n:'Kunlik savdo yakunini yuborish',t:'19:00',p:'b-amber'},
-  ],
-  marketing:[
-    {n:'Instagram story joylashtirish',t:'09:00',p:'b-red'},
-    {n:'Telegram kanalga post',t:'11:00',p:'b-red'},
-    {n:'Reels video material yig\'ish',t:'13:00',p:'b-amber'},
-    {n:'Haftalik statistika tahlili',t:'15:00',p:'b-amber'},
-    {n:'Ertangi kontent rejasi',t:'17:00',p:'b-blue'},
-  ],
-  cashier:[
-    {n:'Kassani ochish va tekshirish',t:'09:00',p:'b-red'},
-    {n:'Ertalabki qoldiq hisobi',t:'09:15',p:'b-red'},
-    {n:'Inkassatsiyaga hujjat tayyorlash',t:'12:00',p:'b-amber'},
-    {n:'Chiqimlar jurnalini to\'ldirish',t:'15:00',p:'b-amber'},
-    {n:'Kechki kassa yakunlash',t:'20:00',p:'b-amber'},
-  ],
-  barista:[
-    {n:'Jihozlarni tozalash va yoqish',t:'08:45',p:'b-red'},
-    {n:'Ingredientlar miqdorini tekshirish',t:'09:00',p:'b-red'},
-    {n:'Vitrinani bezash',t:'09:30',p:'b-amber'},
-    {n:'Tushlik uchun stokni to\'ldirish',t:'11:30',p:'b-amber'},
-    {n:'Jihozlarni kechki tozalash',t:'17:30',p:'b-blue'},
-  ],
-  cleaner:[
-    {n:'Kirish hallni tozalash',t:'08:00',p:'b-red'},
-    {n:'1-qavat: zallar va yo\'laklar',t:'08:30',p:'b-red'},
-    {n:'2-qavat: ofislar va hammomlar',t:'10:00',p:'b-amber'},
-    {n:'3-qavat: xonalar',t:'12:00',p:'b-amber'},
-    {n:'Kimyoviy vositalar tekshirish',t:'14:00',p:'b-blue'},
-    {n:'Kechki umumiy tozalash',t:'17:00',p:'b-amber'},
-  ],
+var RLABELS = {hr:'HR',manager:'Menejer',marketing:'Marketing',cashier:'Kassir',barista:'Barista',cleaner:'Tozalovchi'};
+var RCOLORS = {
+  hr:'rgba(124,111,255,.2)|#a89eff',
+  manager:'rgba(56,144,221,.2)|#60a5fa',
+  marketing:'rgba(245,166,35,.2)|#f5a623',
+  cashier:'rgba(45,212,160,.2)|#2dd4a0',
+  barista:'rgba(255,107,107,.2)|#ff8080',
+  cleaner:'rgba(74,222,128,.2)|#4ade80'
 };
 
-const EXTRA_FIELDS = {
-  hr:[{id:'total_staff',label:'Bugun kelgan xodimlar soni',ph:'21'},{id:'late_count',label:'Kech qolganlar soni',ph:'0'},{id:'absent',label:'Kelmagan xodimlar',ph:'Jasur M.'},{id:'notes',label:'Izoh',ph:'...',ta:true}],
-  manager:[{id:'sales',label:'Bugungi savdo (so\'m)',ph:'2400000'},{id:'clients',label:'Mijozlar soni',ph:'87'},{id:'issues',label:'Muammolar',ph:'...',ta:true},{id:'notes',label:'Izoh',ph:'...',ta:true}],
-  marketing:[{id:'posts',label:'Joylashtirilgan postlar',ph:'3'},{id:'reach',label:'Reach',ph:'1500'},{id:'content',label:'Ertangi post mavzusi',ph:'...'},{id:'notes',label:'Izoh',ph:'...',ta:true}],
-  cashier:[{id:'total',label:'Kunlik kassa (so\'m)',ph:'1800000'},{id:'cash',label:'Naqd (so\'m)',ph:'1100000'},{id:'card',label:'Karta (so\'m)',ph:'700000'},{id:'notes',label:'Muammo yoki izoh',ph:'...',ta:true}],
-  barista:[{id:'orders',label:'Buyurtmalar soni',ph:'45'},{id:'top',label:'Eng ko\'p buyurtma',ph:'Latte'},{id:'stock',label:'Tugagan mahsulot',ph:'Yo\'q'},{id:'notes',label:'Izoh',ph:'...',ta:true}],
-  cleaner:[{id:'rooms',label:'Tozalangan xonalar',ph:'12'},{id:'issues',label:'Ta\'mirlash kerak joy',ph:'Yo\'q'},{id:'supply',label:'Tugagan vositalar',ph:'Yo\'q'},{id:'notes',label:'Izoh',ph:'...',ta:true}],
+var DUTIES = {
+  hr:['Davomat hisobotini tekshirish|09:00|bred','Kech qolganlar royxatini yuborish|09:30|bred','Yangi ariza kori chiqish|10:00|bamber','Jarima hisobotini yangilash|11:00|bamber','Xodimlar bilan uchrashuv|14:00|bblue','Kunlik yakunni yuborish|18:30|bamber'],
+  manager:['Xodimlar briefingi|09:00|bred','Savdo raqamlarini tekshirish|09:30|bred','Yetkazib beruvchi bilan uchrashuv|11:00|bamber','Haftalik xarajatlar hisoboti|14:00|bamber','Filial audit|15:30|bblue','Kunlik savdo yakunini yuborish|19:00|bamber'],
+  marketing:['Instagram story joylashtirish|09:00|bred','Telegram kanalga post|11:00|bred','Reels video material yigish|13:00|bamber','Haftalik statistika tahlili|15:00|bamber','Ertangi kontent rejasi|17:00|bblue'],
+  cashier:['Kassani ochish va tekshirish|09:00|bred','Ertalabki qoldiq hisobi|09:15|bred','Inkassatsiyaga hujjat tayyorlash|12:00|bamber','Chiqimlar jurnalini toldirish|15:00|bamber','Kechki kassa yakunlash|20:00|bamber'],
+  barista:['Jihozlarni tozalash va yoqish|08:45|bred','Ingredientlar miqdorini tekshirish|09:00|bred','Vitrinani bezash|09:30|bamber','Tushlik uchun stokni toldirish|11:30|bamber','Jihozlarni kechki tozalash|17:30|bblue'],
+  cleaner:['Kirish hallni tozalash|08:00|bred','1-qavat zallar va yolaklar|08:30|bred','2-qavat ofislar va hammomlar|10:00|bamber','3-qavat xonalar|12:00|bamber','Kimyoviy vositalar tekshirish|14:00|bblue','Kechki umumiy tozalash|17:00|bamber']
 };
 
-const ROLE_LABELS = {hr:'HR',manager:'Menejer',marketing:'Marketing',cashier:'Kassir',barista:'Barista',cleaner:'Tozalovchi'};
-const ROLE_COLORS = {hr:'rgba(124,111,255,.2)|#a89eff',manager:'rgba(56,144,221,.2)|#60a5fa',marketing:'rgba(245,166,35,.2)|#f5a623',cashier:'rgba(45,212,160,.2)|#2dd4a0',barista:'rgba(255,107,107,.2)|#ff8080',cleaner:'rgba(74,222,128,.2)|#4ade80'};
+var EXTRA = {
+  hr:[['staff','Bugun kelgan xodimlar soni','21',false],['late','Kech qolganlar soni','0',false],['absent','Kelmagan xodimlar','Yoq',false],['notes','Izoh','...',true]],
+  manager:[['sales','Bugungi savdo (som)','2400000',false],['clients','Mijozlar soni','87',false],['issues','Muammolar','...',true],['notes','Izoh','...',true]],
+  marketing:[['posts','Joylashtirilgan postlar','3',false],['reach','Reach','1500',false],['content','Ertangi post mavzusi','...',false],['notes','Izoh','...',true]],
+  cashier:[['total','Kunlik kassa (som)','1800000',false],['cash','Naqd (som)','1100000',false],['card','Karta (som)','700000',false],['notes','Izoh','...',true]],
+  barista:[['orders','Buyurtmalar soni','45',false],['top','Eng kop buyurtma','Latte',false],['stock','Tugagan mahsulot','Yoq',false],['notes','Izoh','...',true]],
+  cleaner:[['rooms','Tozalangan xonalar','12',false],['issues','Tamirlash kerak joy','Yoq',false],['supply','Tugagan vositalar','Yoq',false],['notes','Izoh','...',true]]
+};
 
-// ══════════════════════════════
-// LOGIN
-// ══════════════════════════════
-let currentTab = 'admin';
-let currentWorker = null;
+function loadData(){try{return JSON.parse(localStorage.getItem(STORE))||{workers:[],reports:[]};}catch(e){return{workers:[],reports:[]};}}
+function saveData(d){localStorage.setItem(STORE,JSON.stringify(d));}
 
-function switchTab(tab) {
-  currentTab = tab;
-  document.getElementById('adminForm').style.display = tab==='admin'?'block':'none';
-  document.getElementById('workerForm').style.display = tab==='worker'?'block':'none';
-  document.querySelectorAll('.ltab').forEach((b,i)=>b.classList.toggle('active',(i===0&&tab==='admin')||(i===1&&tab==='worker')));
+function pn(el,prefix,idx){
+  el.value=el.value.replace(/[^0-9]/g,'').slice(-1);
+  if(el.value&&idx<5){var nx=document.getElementById(prefix+(idx+1));if(nx)nx.focus();}
 }
 
-function pinNext(i) {
-  const v = document.getElementById('p'+i).value;
-  if(v && i<5) document.getElementById('p'+(i+1)).focus();
-}
-function wPinNext(i) {
-  const v = document.getElementById('wp'+i).value;
-  if(v && i<5) document.getElementById('wp'+(i+1)).focus();
+function getPin(prefix){
+  var r='';
+  for(var i=0;i<6;i++){var el=document.getElementById(prefix+i);r+=el?el.value:'';}
+  return r;
 }
 
-function getPin(prefix) {
-  return [0,1,2,3,4,5].map(i=>document.getElementById(prefix+i).value).join('');
+function switchTab(t){
+  document.getElementById('formAdmin').style.display=t===0?'block':'none';
+  document.getElementById('formWorker').style.display=t===1?'block':'none';
+  document.getElementById('tab0').className='ltab'+(t===0?' active':'');
+  document.getElementById('tab1').className='ltab'+(t===1?' active':'');
 }
 
-async function loginAdmin() {
-  const pin = getPin('p');
-  const login = document.getElementById('adminLogin').value.trim();
-  const hashed = await hashPin(pin);
-  if(login.trim().length >= 2 && hashed===ADMIN_HASH) {
-    window._adminName = login.trim();
-    show('s-admin');
-    const nb=document.getElementById('adminNameBadge'); if(nb) nb.textContent=login.trim();
+function loginAdmin(){
+  var name=document.getElementById('aName').value.trim();
+  var pin=getPin('a');
+  var ok=pin.length===6&&pin.split('').every(function(c,i){return parseInt(c)===APIN[i];});
+  if(name.length>=2&&ok){
+    adminName=name;
+    document.getElementById('adminBadge').textContent=name;
+    show('sAdmin');
+    buildAdminNav();
     adminPage('dashboard');
   } else {
-    document.getElementById('adminErr').textContent = 'Login yoki PIN noto\'g\'ri!';
-    [0,1,2,3,4,5].forEach(i=>{ const el=document.getElementById('p'+i); el.value=''; el.style.borderColor='#ff8080'; });
-    setTimeout(()=>[0,1,2,3,4,5].forEach(i=>document.getElementById('p'+i).style.borderColor=''),1500);
+    document.getElementById('aErr').textContent='Ism yoki PIN xato!';
+    for(var i=0;i<6;i++){var el=document.getElementById('a'+i);if(el){el.value='';el.style.borderColor='#ff8080';}}
+    setTimeout(function(){for(var i=0;i<6;i++){var el=document.getElementById('a'+i);if(el)el.style.borderColor='';}},1500);
   }
 }
 
-async function loginWorker() {
-  const login = document.getElementById('workerLogin').value.trim().toLowerCase();
-  const pin   = getPin('wp');
-  const hashed = await hashPin(pin);
-  const d = loadData();
-  const w = d.workers.find(x => x.login.toLowerCase()===login && x.pin===hashed);
-  if(w) {
-    currentWorker = w;
-    const [bg,tc] = (ROLE_COLORS[w.role]||'rgba(255,255,255,.1)|#fff').split('|');
-    document.getElementById('workerBadge').textContent = ROLE_LABELS[w.role]||w.role;
-    document.getElementById('workerBadge').style.cssText = `background:${bg};color:${tc};font-size:12px;font-weight:500;padding:3px 12px;border-radius:99px`;
-    show('s-worker');
-    startWorkerFlow();
+function loginWorker(){
+  var login=document.getElementById('wLogin').value.trim().toLowerCase();
+  var pin=getPin('w');
+  var d=loadData();
+  var worker=null;
+  for(var i=0;i<d.workers.length;i++){if(d.workers[i].login.toLowerCase()===login&&d.workers[i].pin===pin){worker=d.workers[i];break;}}
+  if(worker){
+    curWorker=worker;
+    var parts=(RCOLORS[worker.role]||'rgba(255,255,255,.1)|#fff').split('|');
+    var badge=document.getElementById('workerBadge');
+    badge.textContent=RLABELS[worker.role]||worker.role;
+    badge.style.background=parts[0];badge.style.color=parts[1];
+    badge.style.fontSize='12px';badge.style.fontWeight='500';badge.style.padding='3px 12px';badge.style.borderRadius='99px';
+    show('sWorker');
+    startWorker();
   } else {
-    document.getElementById('workerErr').textContent = 'Login yoki PIN noto\'g\'ri!';
-    [0,1,2,3,4,5].forEach(i=>{ const el=document.getElementById('wp'+i); el.value=''; el.style.borderColor='#ff8080'; });
-    setTimeout(()=>[0,1,2,3,4,5].forEach(i=>document.getElementById('wp'+i).style.borderColor=''),1500);
+    document.getElementById('wErr').textContent='Login yoki PIN xato!';
+    for(var i=0;i<6;i++){var el=document.getElementById('w'+i);if(el){el.value='';el.style.borderColor='#ff8080';}}
+    setTimeout(function(){for(var i=0;i<6;i++){var el=document.getElementById('w'+i);if(el)el.style.borderColor='';}},1500);
   }
 }
 
-function logout() {
-  currentWorker = null;
-  workerStep = 0; workerDuties = {}; workerForm = {}; workerRating = null;
-  show('s-login');
-  [0,1,2,3,4,5].forEach(i=>{ const a=document.getElementById('p'+i); if(a)a.value=''; });
-  [0,1,2,3,4,5].forEach(i=>{ const a=document.getElementById('wp'+i); if(a)a.value=''; });
-  document.getElementById('workerLogin').value='';
-  document.getElementById('adminErr').textContent='';
-  document.getElementById('workerErr').textContent='';
+function logout(){
+  curWorker=null;adminName='';wStep=0;wDuties={};wForm={};wRating=0;
+  for(var i=0;i<6;i++){var a=document.getElementById('a'+i);var w=document.getElementById('w'+i);if(a)a.value='';if(w)w.value='';}
+  document.getElementById('aName').value='';
+  document.getElementById('wLogin').value='';
+  document.getElementById('aErr').textContent='';
+  document.getElementById('wErr').textContent='';
+  show('sLogin');
 }
 
-function show(id) {
-  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-}
-
-// ══════════════════════════════
-// ADMIN PAGES
-// ══════════════════════════════
-function adminPage(id) {
-  document.querySelectorAll('.nav-item').forEach(el=>el.classList.remove('active'));
-  const nav = document.getElementById('anav_'+id);
-  if(nav) nav.classList.add('active');
-  const c = document.getElementById('adminContent');
-  if(id==='dashboard') c.innerHTML = adminDashboard();
-  else if(id==='reports') c.innerHTML = adminReports();
-  else if(id==='workers') c.innerHTML = adminWorkers();
-  else if(id==='add_worker') c.innerHTML = adminAddWorker();
-}
-
-function adminDashboard() {
-  const d = loadData();
-  const now = new Date();
-  const today = `${now.getDate().toString().padStart(2,'0')}.${(now.getMonth()+1).toString().padStart(2,'0')}.${now.getFullYear()}`;
-  const todayReports = d.reports.filter(r=>r.date===today);
-  const pending = todayReports.filter(r=>r.status==='pending').length;
-  const approved = todayReports.filter(r=>r.status==='approved').length;
-  const rejected = todayReports.filter(r=>r.status==='rejected').length;
-  return `<div class="page-title">Dashboard</div>
-  <div class="page-sub">${today}</div>
-  <div class="metrics">
-    <div class="metric" style="cursor:pointer" onclick="adminPage('workers')"><div class="metric-lbl">Jami ishchilar</div><div class="metric-val">${d.workers.length}</div><div class="metric-sub">Ro'yxatdagi</div></div>
-    <div class="metric" style="cursor:pointer" onclick="adminPage('reports')"><div class="metric-lbl">Bugungi hisobot</div><div class="metric-val" style="color:${todayReports.length>0?'#a89eff':''}">${todayReports.length}</div><div class="metric-sub">Topshirilgan</div></div>
-    <div class="metric" style="cursor:pointer" onclick="adminPage('reports')"><div class="metric-lbl">Kutilmoqda</div><div class="metric-val" style="color:${pending>0?'#f5a623':'var(--text3)'}">${pending}</div><div class="metric-sub" style="color:${pending>0?'#f5a623':''}">Tasdiqlanmagan</div></div>
-    <div class="metric" style="cursor:pointer" onclick="adminPage('reports')"><div class="metric-lbl">Tasdiqlangan</div><div class="metric-val" style="color:${approved>0?'#2dd4a0':'var(--text3)'}">${approved}</div><div class="metric-sub" style="color:${approved>0?'#2dd4a0':''}">Bugun</div></div>
-  </div>
-  <div class="card">
-    <div class="card-head"><div class="card-title"><i class="ti ti-clock"></i>Kutilayotgan hisobotlar ${pending>0?'<span class="badge b-amber" style="margin-left:6px">'+pending+'</span>':''}</div><button class="btn-sm" onclick="adminPage('reports')">Barchasi <i class="ti ti-arrow-right"></i></button></div>
-    ${d.reports.filter(r=>r.status==='pending').length===0
-      ? '<div style="text-align:center;padding:1.5rem;color:var(--text3);font-size:14px"><i class="ti ti-circle-check" style="font-size:24px;display:block;margin-bottom:8px;color:#2dd4a0"></i>Barcha hisobotlar tasdiqlangan!</div>'
-      : '<table class="tbl"><thead><tr><th>Ishchi</th><th>Lavozim</th><th>Filial</th><th>Sana</th><th>Vazifalar</th><th>Amal</th></tr></thead><tbody>'+
-        d.reports.filter(r=>r.status==='pending').reverse().map(r=>'<tr><td><b>'+r.workerName+'</b></td><td><span class="badge b-blue">'+(ROLE_LABELS[r.role]||r.role)+'</span></td><td style="color:var(--text3);font-size:12px">'+(r.filial||'—')+'</td><td style="color:var(--text3);font-size:12px">'+r.date+' · '+r.time+'</td><td><span class="badge '+(r.dutyPct>=80?'b-green':r.dutyPct>=50?'b-amber':'b-red')+'">'+r.dutyDone+'/'+r.dutyTotal+'</span></td><td><button class="btn-success" onclick="viewReport(\''+r.id+'\')"><i class="ti ti-eye"></i> Ko\'rish</button></td></tr>').join('')+'</tbody></table>'
-    }
-  </div>
-  <div class="card">
-    <div class="card-head"><div class="card-title"><i class="ti ti-circle-check" style="color:#2dd4a0"></i>Bugun tasdiqlangan ${approved>0?'<span class="badge b-green" style="margin-left:6px">'+approved+'</span>':''}</div></div>
-    ${d.reports.filter(r=>r.status==='approved'&&r.date===today).length===0
-      ? '<div style="text-align:center;padding:1rem;color:var(--text3);font-size:13px">Bugun tasdiqlangan hisobot yo\'q</div>'
-      : '<table class="tbl"><thead><tr><th>Ishchi</th><th>Lavozim</th><th>Filial</th><th>Sana</th><th>Vazifalar</th></tr></thead><tbody>'+
-        d.reports.filter(r=>r.status==='approved'&&r.date===today).reverse().map(r=>'<tr><td><b>'+r.workerName+'</b></td><td><span class="badge b-blue">'+(ROLE_LABELS[r.role]||r.role)+'</span></td><td style="color:var(--text3);font-size:12px">'+(r.filial||'—')+'</td><td style="color:var(--text3);font-size:12px">'+r.date+' · '+r.time+'</td><td><span class="badge b-green">'+r.dutyDone+'/'+r.dutyTotal+'</span></td></tr>').join('')+'</tbody></table>'
-    }
-  </div>`;
-}
-
-function adminReports() {
-  const d = loadData();
-  const reports = [...d.reports].reverse();
-  return `<div class="page-title">Barcha hisobotlar</div>
-  <div class="page-sub">${reports.length} ta hisobot</div>
-  <div class="card">
-    ${reports.length===0
-      ? `<div style="text-align:center;padding:2rem;color:var(--text3)">Hali hisobot yo'q</div>`
-      : `<table class="tbl">
-      <thead><tr><th>Ishchi</th><th>Lavozim</th><th>Sana</th><th>Vazifalar</th><th>Holat</th><th>Amal</th></tr></thead>
-      <tbody>${reports.map(r=>`
-      <tr>
-        <td><b>${r.workerName}</b><div style="font-size:11px;color:var(--text3)">${r.filial||''}</div></td>
-        <td><span class="badge b-blue">${ROLE_LABELS[r.role]||r.role}</span></td>
-        <td style="color:var(--text3);font-size:12px">${r.date}<br>${r.time}</td>
-        <td><span class="badge ${r.dutyPct>=80?'b-green':r.dutyPct>=50?'b-amber':'b-red'}">${r.dutyDone}/${r.dutyTotal} (${r.dutyPct}%)</span></td>
-        <td><span class="badge ${r.status==='approved'?'b-green':r.status==='rejected'?'b-red':'b-amber'}">${r.status==='approved'?'Tasdiqlandi':r.status==='rejected'?'Rad etildi':'Kutilmoqda'}</span></td>
-        <td><button class="btn-sm" onclick="viewReport('${r.id}')"><i class="ti ti-eye"></i></button></td>
-      </tr>`).join('')}
-      </tbody></table>`
-    }
-  </div>`;
-}
-
-function adminWorkers() {
-  const d = loadData();
-  return `<div class="page-title">Ishchilar ro'yxati</div>
-  <div class="page-sub">${d.workers.length} ta ishchi</div>
-  <div class="card">
-    <div class="card-head"><div class="card-title"><i class="ti ti-users"></i>Barcha ishchilar</div>
-    <button class="btn-accent" onclick="adminPage('add_worker')"><i class="ti ti-plus"></i> Yangi</button></div>
-    ${d.workers.length===0
-      ? `<div style="text-align:center;padding:2rem;color:var(--text3)">Ishchi yo'q</div>`
-      : `<table class="tbl">
-      <thead><tr><th>Ism</th><th>Login</th><th>Lavozim</th><th>Filial</th><th>Amal</th></tr></thead>
-      <tbody>${d.workers.map(w=>`
-      <tr>
-        <td><b>${w.name}</b></td>
-        <td><code style="background:var(--bg3);padding:2px 6px;border-radius:4px;font-size:12px">${w.login}</code></td>
-        <td><span class="badge b-blue">${ROLE_LABELS[w.role]||w.role}</span></td>
-        <td style="color:var(--text3)">${w.filial}</td>
-        <td style="display:flex;gap:6px">
-          <button class="btn-sm" onclick="editWorker('${w.id}')"><i class="ti ti-edit"></i></button>
-          <button class="btn-danger" onclick="deleteWorker('${w.id}')"><i class="ti ti-trash"></i></button>
-        </td>
-      </tr>`).join('')}
-      </tbody></table>`
-    }
-  </div>`;
-}
-
-function adminAddWorker() {
-  return `<div class="page-title">Yangi login yaratish</div>
-  <div class="page-sub">Ishchi uchun login va PIN belgilang</div>
-  <div class="card">
-    <div class="card-title"><i class="ti ti-user-plus"></i>Ishchi ma'lumotlari</div>
-    <div class="modal-form">
-      <div class="form-group"><label class="form-label">To'liq ism</label><input class="form-input" id="nw_name" placeholder="Alisher Toshmatov"></div>
-      <div class="form-group"><label class="form-label">Lavozim</label>
-        <select class="form-select" id="nw_role">
-          <option value="hr">HR</option>
-          <option value="manager">Menejer</option>
-          <option value="marketing">Marketing</option>
-          <option value="cashier">Kassir</option>
-          <option value="barista" selected>Barista</option>
-          <option value="cleaner">Tozalovchi</option>
-        </select>
-      </div>
-      <div class="form-group"><label class="form-label">Filial</label>
-        <select class="form-select" id="nw_filial">
-          <option>Chilonzor</option><option>Yunusobod</option><option>Mirzo Ulug'bek</option><option>Shayxontohur</option><option>Uchtepa</option>
-        </select>
-      </div>
-      <div class="form-group"><label class="form-label">Login (avtomatik yoki o'zingiz kiriting)</label><input class="form-input" id="nw_login" placeholder="ism_lavozim"></div>
-      <div class="form-group"><label class="form-label">PIN kod (6 ta raqam)</label>
-        <div class="pin-row" style="justify-content:flex-start">
-          <input class="pin-input" id="nw_p0" maxlength="1" type="number" inputmode="numeric" oninput="nwPinNext(0)">
-          <input class="pin-input" id="nw_p1" maxlength="1" type="number" inputmode="numeric" oninput="nwPinNext(1)">
-          <input class="pin-input" id="nw_p2" maxlength="1" type="number" inputmode="numeric" oninput="nwPinNext(2)">
-          <input class="pin-input" id="nw_p3" maxlength="1" type="number" inputmode="numeric" oninput="nwPinNext(3)">
-          <input class="pin-input" id="nw_p4" maxlength="1" type="number" inputmode="numeric" oninput="nwPinNext(4)">
-          <input class="pin-input" id="nw_p5" maxlength="1" type="number" inputmode="numeric" oninput="nwPinNext(5)">
-        </div>
-      </div>
-      <div style="display:flex;gap:8px;margin-top:.5rem">
-        <button class="btn-sm" onclick="autoFill()"><i class="ti ti-refresh"></i> Avtomatik to'ldirish</button>
-        <button class="btn-accent" onclick="saveWorker()"><i class="ti ti-check"></i> Saqlash</button>
-      </div>
-      <div class="err-msg" id="nwErr"></div>
-    </div>
-  </div>`;
-}
-
-function nwPinNext(i) {
-  const v = document.getElementById('nw_p'+i).value;
-  if(v && i<5) document.getElementById('nw_p'+(i+1)).focus();
-}
-
-function autoFill() {
-  const name = document.getElementById('nw_name').value.trim();
-  const role = document.getElementById('nw_role').value;
-  if(name) {
-    const first = name.split(' ')[0].toLowerCase();
-    document.getElementById('nw_login').value = `${first}_${role}`;
+function show(id){
+  var screens=['sLogin','sAdmin','sWorker'];
+  for(var i=0;i<screens.length;i++){
+    var el=document.getElementById(screens[i]);
+    if(el)el.className='screen'+(screens[i]===id?' active':'');
   }
-  const pin = Math.floor(100000+Math.random()*900000).toString();
-  pin.split('').forEach((c,i)=>document.getElementById('nw_p'+i).value=c);
 }
 
-async function saveWorker() {
-  const name   = document.getElementById('nw_name').value.trim();
-  const role   = document.getElementById('nw_role').value;
-  const filial = document.getElementById('nw_filial').value;
-  const login  = document.getElementById('nw_login').value.trim().toLowerCase();
-  const pin    = [0,1,2,3,4,5].map(i=>document.getElementById('nw_p'+i).value).join('');
+/* ── ADMIN ── */
+function buildAdminNav(){
+  var nav=[
+    {id:'dashboard',icon:'ti-home',label:'Dashboard'},
+    {id:'reports',icon:'ti-file-description',label:'Hisobotlar'},
+    {id:'workers',icon:'ti-users',label:'Ishchilar'},
+    {id:'addworker',icon:'ti-user-plus',label:'Login yaratish'}
+  ];
+  var html='';
+  nav.forEach(function(n){
+    html+='<div class="navitem" id="nav_'+n.id+'" onclick="adminPage(\''+n.id+'\')"><i class="ti '+n.icon+'"></i>'+n.label+'</div>';
+  });
+  document.getElementById('adminNav').innerHTML=html;
+}
 
-  if(!name||!login||pin.length!==6) { document.getElementById('nwErr').textContent='Barcha maydonlarni to\'ldiring!'; return; }
+function adminPage(id){
+  document.querySelectorAll('.navitem').forEach(function(el){el.classList.remove('active');});
+  var nav=document.getElementById('nav_'+id);
+  if(nav)nav.classList.add('active');
+  var c=document.getElementById('adminContent');
+  if(id==='dashboard')c.innerHTML=pageDashboard();
+  else if(id==='reports')c.innerHTML=pageReports();
+  else if(id==='workers')c.innerHTML=pageWorkers();
+  else if(id==='addworker')c.innerHTML=pageAddWorker();
+}
 
-  const d = loadData();
-  if(d.workers.find(w=>w.login===login)) { document.getElementById('nwErr').textContent='Bu login allaqachon mavjud!'; return; }
+function pageDashboard(){
+  var d=loadData();
+  var tr=d.reports.filter(function(r){return r.date===TODAY;});
+  var pend=tr.filter(function(r){return r.status==='pending';});
+  var appr=tr.filter(function(r){return r.status==='approved';});
 
-  const pinHashed = await hashPin(pin);
-  d.workers.push({id:'w'+Date.now(), login, pin:pinHashed, name, role, filial});
+  function trow(r){
+    return '<tr><td><b>'+r.workerName+'</b><div style="font-size:11px;color:rgba(240,239,248,.3)">'+r.filial+'</div></td>'
+      +'<td><span class="badge bblue">'+(RLABELS[r.role]||r.role)+'</span></td>'
+      +'<td><span class="badge '+(r.dutyPct>=80?'bgreen':r.dutyPct>=50?'bamber':'bred')+'">'+r.dutyDone+'/'+r.dutyTotal+'</span></td>'
+      +'<td style="color:rgba(240,239,248,.3);font-size:12px">'+r.time+'</td>'
+      +'<td><button class="btnsuccess" onclick="viewReport(\''+r.id+'\')"><i class="ti ti-eye"></i> Ko\'rish</button></td></tr>';
+  }
+
+  function tbl(list,empty){
+    if(!list.length)return '<div style="text-align:center;padding:1.25rem;color:rgba(240,239,248,.3);font-size:13px">'+empty+'</div>';
+    return '<table class="tbl"><thead><tr><th>Ishchi</th><th>Lavozim</th><th>Vazifalar</th><th>Vaqt</th><th>Amal</th></tr></thead><tbody>'+list.map(trow).join('')+'</tbody></table>';
+  }
+
+  return '<div class="ptitle">Dashboard</div><div class="psub">'+TODAY+'</div>'
+    +'<div class="metrics">'
+    +'<div class="metric"><div class="mlbl">Jami ishchilar</div><div class="mval">'+d.workers.length+'</div><div class="msub">Royxatdagi</div></div>'
+    +'<div class="metric"><div class="mlbl">Bugungi hisobot</div><div class="mval">'+tr.length+'</div><div class="msub">'+(tr.length?'Topshirilgan':'Hali yoq')+'</div></div>'
+    +'<div class="metric"><div class="mlbl">Kutilmoqda</div><div class="mval" style="color:#f5a623">'+pend.length+'</div><div class="msub">'+(pend.length?pend.map(function(r){return r.workerName.split(' ')[0];}).join(', '):'Hammasi korilgan')+'</div></div>'
+    +'<div class="metric"><div class="mlbl">Tasdiqlangan</div><div class="mval" style="color:#2dd4a0">'+appr.length+'</div><div class="msub">'+(appr.length?appr.map(function(r){return r.workerName.split(' ')[0];}).join(', '):'Hali yoq')+'</div></div>'
+    +'</div>'
+    +'<div class="card"><div class="cardhead"><div class="cardtitle"><i class="ti ti-clock" style="color:#f5a623"></i>Tasdiqlashni kutayotganlar <span class="badge bamber">'+pend.length+'</span></div><button class="btnsm" onclick="adminPage(\'reports\')">Barchasi <i class="ti ti-arrow-right"></i></button></div>'
+    +tbl(pend,'Kutilayotgan hisobot yoq')+'</div>'
+    +'<div class="card"><div class="cardhead"><div class="cardtitle"><i class="ti ti-circle-check" style="color:#2dd4a0"></i>Tasdiqlangan <span class="badge bgreen">'+appr.length+'</span></div></div>'
+    +tbl(appr,'Hali tasdiqlangan hisobot yoq')+'</div>';
+}
+
+function pageReports(){
+  var d=loadData();
+  var list=d.reports.slice().reverse();
+  if(!list.length)return '<div class="ptitle">Barcha hisobotlar</div><div class="card"><div style="text-align:center;padding:2rem;color:rgba(240,239,248,.3)">Hali hisobot yoq</div></div>';
+  var rows=list.map(function(r){
+    return '<tr><td><b>'+r.workerName+'</b><div style="font-size:11px;color:rgba(240,239,248,.3)">'+r.filial+'</div></td>'
+      +'<td><span class="badge bblue">'+(RLABELS[r.role]||r.role)+'</span></td>'
+      +'<td style="color:rgba(240,239,248,.3);font-size:12px">'+r.date+' '+r.time+'</td>'
+      +'<td><span class="badge '+(r.dutyPct>=80?'bgreen':r.dutyPct>=50?'bamber':'bred')+'">'+r.dutyDone+'/'+r.dutyTotal+' ('+r.dutyPct+'%)</span></td>'
+      +'<td><span class="badge '+(r.status==='approved'?'bgreen':r.status==='rejected'?'bred':'bamber')+'">'+(r.status==='approved'?'Tasdiqlandi':r.status==='rejected'?'Rad etildi':'Kutilmoqda')+'</span></td>'
+      +'<td><button class="btnsm" onclick="viewReport(\''+r.id+'\')"><i class="ti ti-eye"></i></button></td></tr>';
+  }).join('');
+  return '<div class="ptitle">Barcha hisobotlar</div><div class="psub">'+list.length+' ta</div>'
+    +'<div class="card"><table class="tbl"><thead><tr><th>Ishchi</th><th>Lavozim</th><th>Sana</th><th>Vazifalar</th><th>Holat</th><th>Amal</th></tr></thead><tbody>'+rows+'</tbody></table></div>';
+}
+
+function pageWorkers(){
+  var d=loadData();
+  var rows=d.workers.map(function(w){
+    return '<tr><td><b>'+w.name+'</b></td>'
+      +'<td><code style="background:#18181f;padding:2px 6px;border-radius:4px;font-size:12px">'+w.login+'</code></td>'
+      +'<td><span class="badge bblue">'+(RLABELS[w.role]||w.role)+'</span></td>'
+      +'<td style="color:rgba(240,239,248,.3)">'+w.filial+'</td>'
+      +'<td><button class="btndanger" onclick="delWorker(\''+w.id+'\')"><i class="ti ti-trash"></i></button></td></tr>';
+  }).join('');
+  return '<div class="ptitle">Ishchilar</div><div class="psub">'+d.workers.length+' ta</div>'
+    +'<div class="card"><div class="cardhead"><div class="cardtitle"><i class="ti ti-users"></i>Royxat</div><button class="btnacc" onclick="adminPage(\'addworker\')"><i class="ti ti-plus"></i> Yangi</button></div>'
+    +(d.workers.length?'<table class="tbl"><thead><tr><th>Ism</th><th>Login</th><th>Lavozim</th><th>Filial</th><th></th></tr></thead><tbody>'+rows+'</tbody></table>':'<div style="text-align:center;padding:2rem;color:rgba(240,239,248,.3)">Ishchi yoq</div>')
+    +'</div>';
+}
+
+function pageAddWorker(){
+  var rols=['hr','manager','marketing','cashier','barista','cleaner'];
+  var rsel=rols.map(function(r){return '<option value="'+r+'">'+(RLABELS[r]||r)+'</option>';}).join('');
+  var fsel=['Chilonzor','Yunusobod','Mirzo Ulugbek','Shayxontohur','Uchtepa'].map(function(f){return '<option>'+f+'</option>';}).join('');
+  return '<div class="ptitle">Login yaratish</div><div class="psub">Ishchi uchun login va PIN</div>'
+    +'<div class="card">'
+    +'<div class="fgroup"><label class="flabel">Tolik ism</label><input class="finput" id="nwName" placeholder="Alisher Toshmatov"></div>'
+    +'<div class="fgroup"><label class="flabel">Lavozim</label><select class="finput" id="nwRole">'+rsel+'</select></div>'
+    +'<div class="fgroup"><label class="flabel">Filial</label><select class="finput" id="nwFilial">'+fsel+'</select></div>'
+    +'<div class="fgroup"><label class="flabel">Login</label><input class="finput" id="nwLogin" placeholder="ism_lavozim"></div>'
+    +'<div class="fgroup"><label class="flabel">PIN (6 ta raqam)</label>'
+    +'<div class="pinrow" style="justify-content:flex-start">'
+    +'<input class="pininp" id="n0" maxlength="1" inputmode="numeric" oninput="pn(this,\'n\',0)">'
+    +'<input class="pininp" id="n1" maxlength="1" inputmode="numeric" oninput="pn(this,\'n\',1)">'
+    +'<input class="pininp" id="n2" maxlength="1" inputmode="numeric" oninput="pn(this,\'n\',2)">'
+    +'<input class="pininp" id="n3" maxlength="1" inputmode="numeric" oninput="pn(this,\'n\',3)">'
+    +'<input class="pininp" id="n4" maxlength="1" inputmode="numeric" oninput="pn(this,\'n\',4)">'
+    +'<input class="pininp" id="n5" maxlength="1" inputmode="numeric" oninput="pn(this,\'n\',5)">'
+    +'</div></div>'
+    +'<div style="display:flex;gap:8px">'
+    +'<button class="btnsm" onclick="autoFill()"><i class="ti ti-refresh"></i> Avtomatik</button>'
+    +'<button class="btnacc" onclick="saveWorker()"><i class="ti ti-check"></i> Saqlash</button>'
+    +'</div><div class="errmsg" id="nwErr"></div></div>';
+}
+
+function autoFill(){
+  var name=document.getElementById('nwName').value.trim();
+  var role=document.getElementById('nwRole').value;
+  if(name){var f=name.split(' ')[0].toLowerCase().replace(/[^a-z]/g,'');document.getElementById('nwLogin').value=f+'_'+role;}
+  var pin=String(Math.floor(100000+Math.random()*900000));
+  for(var i=0;i<6;i++){var el=document.getElementById('n'+i);if(el)el.value=pin[i];}
+}
+
+function saveWorker(){
+  var name=document.getElementById('nwName').value.trim();
+  var role=document.getElementById('nwRole').value;
+  var filial=document.getElementById('nwFilial').value;
+  var login=document.getElementById('nwLogin').value.trim().toLowerCase();
+  var pin='';for(var i=0;i<6;i++){var el=document.getElementById('n'+i);pin+=el?el.value:'';}
+  if(!name||!login||pin.length!==6){document.getElementById('nwErr').textContent='Barcha maydonlarni toldiring!';return;}
+  var d=loadData();
+  if(d.workers.find(function(w){return w.login===login;})){document.getElementById('nwErr').textContent='Bu login allaqachon bor!';return;}
+  d.workers.push({id:'w'+Date.now(),login:login,pin:pin,name:name,role:role,filial:filial});
   saveData(d);
-
-  openModal(`<div class="modal-title" style="color:#2dd4a0"><i class="ti ti-circle-check"></i> Yaratildi!</div>
-    <div style="background:var(--bg3);border-radius:10px;padding:1rem;margin-bottom:1rem">
-      <div style="font-size:13px;color:var(--text2);margin-bottom:8px">Ishchiga bering:</div>
-      <div style="font-size:14px;margin-bottom:4px">👤 Ism: <b>${name}</b></div>
-      <div style="font-size:14px;margin-bottom:4px">🔑 Login: <b style="color:#a89eff">${login}</b></div>
-      <div style="font-size:14px">🔢 PIN: <b style="color:#2dd4a0">${pin}</b></div>
-    </div>
-    <button class="btn-accent" style="width:100%;justify-content:center" onclick="closeModal();adminPage('workers')">Ishchilar ro'yxatiga</button>`);
+  openMod('<div class="mtitle" style="color:#2dd4a0"><i class="ti ti-circle-check"></i> Yaratildi!</div>'
+    +'<div style="background:#18181f;border-radius:10px;padding:1rem;margin-bottom:1rem">'
+    +'<div style="font-size:14px;margin-bottom:6px">Ishchiga bering:</div>'
+    +'<div style="font-size:14px;margin-bottom:4px">Login: <b style="color:#a89eff">'+login+'</b></div>'
+    +'<div style="font-size:14px">PIN: <b style="color:#2dd4a0">'+pin+'</b></div>'
+    +'</div>'
+    +'<button class="btnacc" style="width:100%;justify-content:center" onclick="closeMod();adminPage(\'workers\')">Ishchilar royxatiga</button>');
 }
 
-function deleteWorker(id) {
-  if(!confirm('O\'chirishni tasdiqlaysizmi?')) return;
-  const d = loadData();
-  d.workers = d.workers.filter(w=>w.id!==id);
-  saveData(d);
-  adminPage('workers');
+function delWorker(id){
+  if(!confirm('Ochirish tasdiqlaysizmi?'))return;
+  var d=loadData();d.workers=d.workers.filter(function(w){return w.id!==id;});saveData(d);adminPage('workers');
 }
 
-function editWorker(id) {
-  const d = loadData();
-  const w = d.workers.find(x=>x.id===id);
-  if(!w) return;
-  openModal(`<div class="modal-title">PIN o'zgartirish</div>
-    <div style="font-size:14px;margin-bottom:1rem">👤 <b>${w.name}</b> — ${ROLE_LABELS[w.role]||w.role}</div>
-    <div class="modal-form">
-      <div class="form-group"><label class="form-label">Yangi PIN (4 ta raqam)</label>
-        <div class="pin-row" style="justify-content:flex-start">
-          <input class="pin-input" id="ep0" maxlength="1" type="number" inputmode="numeric">
-          <input class="pin-input" id="ep1" maxlength="1" type="number" inputmode="numeric">
-          <input class="pin-input" id="ep2" maxlength="1" type="number" inputmode="numeric">
-          <input class="pin-input" id="ep3" maxlength="1" type="number" inputmode="numeric">
-          <input class="pin-input" id="ep4" maxlength="1" type="number" inputmode="numeric">
-          <input class="pin-input" id="ep5" maxlength="1" type="number" inputmode="numeric">
-        </div>
-      </div>
-    </div>
-    <div class="modal-btns">
-      <button class="btn-sm" onclick="closeModal()">Bekor</button>
-      <button class="btn-accent" onclick="updatePin('${id}')">Saqlash</button>
-    </div>`);
-}
-
-async function updatePin(id) {
-  const pin = [0,1,2,3,4,5].map(i=>document.getElementById('ep'+i).value).join('');
-  if(pin.length!==6) { alert('6 ta raqam kiriting!'); return; }
-  const hashed = await hashPin(pin);
-  const d = loadData();
-  const w = d.workers.find(x=>x.id===id);
-  if(w) { w.pin=hashed; saveData(d); }
-  closeModal();
-  adminPage('workers');
-}
-
-function viewReport(id) {
-  const d = loadData();
-  const r = d.reports.find(x=>x.id===id);
-  if(!r) return;
-  const doneList  = r.duties.filter(x=>x.done).map(x=>x.n);
-  const notDone   = r.duties.filter(x=>!x.done).map(x=>x.n);
-  const ratingEmoji = ['','😞','😐','😊','🔥'];
-  const ratingText  = ['','Yomon',"O'rtacha",'Yaxshi',"A'lo"];
-
-  let extraHtml = '';
-  if(r.extras && r.extras.length) {
-    extraHtml = `<div class="hd-section"><div class="hd-label">Ko'rsatkichlar</div>
-      ${r.extras.map(e=>`<div class="hd-value">• ${e.label}: <b>${e.value}</b></div>`).join('')}
-    </div>`;
+function viewReport(id){
+  var d=loadData();
+  var r=d.reports.find(function(x){return x.id===id;});
+  if(!r)return;
+  var done=r.duties.filter(function(x){return x.done;});
+  var notd=r.duties.filter(function(x){return !x.done;});
+  var re=['','Yomon','Ortacha','Yaxshi','Alo'];
+  var html='<div class="mtitle">Hisobot</div>'
+    +'<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:.75rem">'
+    +'<span class="badge bblue">'+(RLABELS[r.role]||r.role)+'</span>'
+    +'<span class="badge bgray">'+r.filial+'</span>'
+    +'<span class="badge '+(r.status==='approved'?'bgreen':r.status==='rejected'?'bred':'bamber')+'">'+(r.status==='approved'?'Tasdiqlandi':r.status==='rejected'?'Rad etildi':'Kutilmoqda')+'</span>'
+    +'</div>'
+    +'<div style="font-size:13px;color:rgba(240,239,248,.3);margin-bottom:1rem">'+r.workerName+' | '+r.date+' '+r.time+' | Kelish: '+r.arriveTime+'</div>'
+    +'<div style="margin-bottom:.5rem;font-size:12px;color:rgba(240,239,248,.3);text-transform:uppercase">Vazifalar ('+r.dutyDone+'/'+r.dutyTotal+')</div>'
+    +done.map(function(x){return '<div style="display:flex;align-items:center;gap:8px;padding:5px 0;font-size:13px"><i class="ti ti-circle-check" style="color:#2dd4a0"></i>'+x.n+'</div>';}).join('')
+    +notd.map(function(x){return '<div style="display:flex;align-items:center;gap:8px;padding:5px 0;font-size:13px;color:rgba(240,239,248,.3)"><i class="ti ti-circle-x" style="color:#ff8080"></i>'+x.n+'</div>';}).join('');
+  if(r.extras&&r.extras.length){
+    html+='<div style="margin:1rem 0 .5rem;font-size:12px;color:rgba(240,239,248,.3);text-transform:uppercase">Natijalar</div>';
+    r.extras.forEach(function(e){html+='<div style="font-size:13px;padding:4px 0">'+e.l+': <b>'+e.v+'</b></div>';});
   }
-
-  openModal(`<div class="modal-title">Hisobot — ${r.workerName}</div>
-    <div class="hd-section">
-      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:.75rem">
-        <span class="badge b-blue">${ROLE_LABELS[r.role]||r.role}</span>
-        <span class="badge b-gray">${r.filial||''}</span>
-        <span class="badge ${r.status==='approved'?'b-green':r.status==='rejected'?'b-red':'b-amber'}">${r.status==='approved'?'Tasdiqlandi':r.status==='rejected'?'Rad etildi':'Kutilmoqda'}</span>
-      </div>
-      <div class="hd-value" style="color:var(--text3);font-size:12px">${r.date} · ${r.time} · Kelish: ${r.arriveTime}</div>
-    </div>
-    <div class="hd-section"><div class="hd-label">Vazifalar (${r.dutyDone}/${r.dutyTotal})</div>
-      ${doneList.map(n=>`<div class="duty-line"><i class="ti ti-circle-check" style="color:#2dd4a0"></i><span>${n}</span></div>`).join('')}
-      ${notDone.map(n=>`<div class="duty-line"><i class="ti ti-circle-x" style="color:#ff8080"></i><span style="color:var(--text3)">${n}</span></div>`).join('')}
-    </div>
-    ${extraHtml}
-    ${r.rating?`<div class="hd-section"><div class="hd-label">Smena bahosi</div><div class="hd-value">${ratingEmoji[r.rating]} ${ratingText[r.rating]}</div></div>`:''}
-    ${r.status==='pending'?`<div class="modal-btns">
-      <button class="btn-danger" onclick="updateReport('${id}','rejected')"><i class="ti ti-x"></i> Rad etish</button>
-      <button class="btn-success" onclick="updateReport('${id}','approved')"><i class="ti ti-check"></i> Tasdiqlash</button>
-    </div>`:`<div style="text-align:center;padding:.5rem;font-size:13px;color:var(--text3)">Hisobot ko'rib chiqilgan</div>`}`);
+  if(r.rating)html+='<div style="margin-top:.75rem;font-size:13px">Smena: <b>'+re[r.rating]+'</b></div>';
+  if(r.status==='pending'){
+    html+='<div style="display:flex;gap:8px;justify-content:flex-end;margin-top:1.25rem">'
+      +'<button class="btndanger" onclick="doReport(\''+id+'\',\'rejected\')"><i class="ti ti-x"></i> Rad etish</button>'
+      +'<button class="btnsuccess" onclick="doReport(\''+id+'\',\'approved\')"><i class="ti ti-check"></i> Tasdiqlash</button>'
+      +'</div>';
+  }
+  openMod(html);
 }
 
-function updateReport(id, status) {
-  const d = loadData();
-  const r = d.reports.find(x=>x.id===id);
-  if(r) { r.status=status; saveData(d); }
-  closeModal();
+function doReport(id,status){
+  var d=loadData();
+  var r=d.reports.find(function(x){return x.id===id;});
+  if(r){r.status=status;saveData(d);}
+  closeMod();
   adminPage('reports');
+  var emoji=status==='approved'?'Tasdiqlandi':'Rad etildi';
+  sendTG(emoji+': '+r.workerName+' ('+r.date+') | Rahbar: '+adminName);
 }
 
-// ══════════════════════════════
-// WORKER FLOW
-// ══════════════════════════════
-let workerStep = 0;
-let workerDuties = {};
-let workerForm = {};
-let workerRating = null;
-
-function startWorkerFlow() {
-  workerStep = 0;
-  workerDuties = {};
-  DUTIES[currentWorker.role]?.forEach((_,i) => workerDuties[i]=false);
-  workerForm = {};
-  workerRating = null;
-  renderWorkerStep();
+/* ── TELEGRAM ── */
+function sendTG(msg){
+  fetch('https://api.telegram.org/bot'+BOT+'/sendMessage',{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({chat_id:CID,text:msg})
+  }).catch(function(){});
 }
 
-const NOW = new Date();
-const DATE = `${NOW.getDate().toString().padStart(2,'0')}.${(NOW.getMonth()+1).toString().padStart(2,'0')}.${NOW.getFullYear()}`;
-const TIME = `${String(NOW.getHours()).padStart(2,'0')}:${String(NOW.getMinutes()).padStart(2,'0')}`;
-
-function stepDots(active, total=3) {
-  return `<div class="step-dots">${Array.from({length:total},(_,i)=>`<div class="sdot ${i<active?'done':i===active?'active':''}"></div>`).join('')}</div>`;
+/* ── WORKER FLOW ── */
+function startWorker(){
+  wStep=0;wDuties={};wForm={};wRating=0;
+  var duties=DUTIES[curWorker.role]||[];
+  for(var i=0;i<duties.length;i++)wDuties[i]=false;
+  renderWorker();
 }
 
-function renderWorkerStep() {
-  const c = document.getElementById('workerContent');
-  if(workerStep===0) c.innerHTML = renderWArrival();
-  else if(workerStep===1) c.innerHTML = renderWDuties();
-  else if(workerStep===2) c.innerHTML = renderWForm();
-  else if(workerStep===3) c.innerHTML = renderWSuccess();
+function dots(active){
+  var html='<div class="sdots">';
+  for(var i=0;i<3;i++)html+='<div class="sdot'+(i<active?' done':i===active?' active':'')+'"></div>';
+  return html+'</div>';
 }
 
-function renderWArrival() {
-  const isLate = NOW.getHours()>9||(NOW.getHours()===9&&NOW.getMinutes()>5);
-  return `${stepDots(0)}
-  <div class="page-title">Salom, ${currentWorker.name.split(' ')[0]}!</div>
-  <div class="page-sub">${DATE} · ${TIME}</div>
-  <div class="card">
-    <div class="card-title"><i class="ti ti-login"></i>Kelish vaqtini belgilang</div>
-    <div class="form-group"><label class="form-label">Kelgan vaqt</label><input type="time" class="form-input" id="arrTime" value="${TIME}"></div>
-    ${isLate?`<div style="background:rgba(226,75,74,.1);border:.5px solid rgba(226,75,74,.2);border-radius:10px;padding:10px 14px;font-size:13px;color:#ff8080;margin-bottom:1rem"><i class="ti ti-alert-circle" style="vertical-align:-2px"></i> Kech qolish sababi yozing</div>
-    <div class="form-group"><label class="form-label">Sabab</label><input class="form-input" id="lateReason" placeholder="Transport muammosi..."></div>`:''}
-  </div>
-  <div style="display:flex;justify-content:flex-end">
-    <button class="btn-accent" onclick="confirmArrival()"><i class="ti ti-arrow-right"></i> Davom etish</button>
-  </div>`;
+function renderWorker(){
+  var c=document.getElementById('workerContent');
+  if(wStep===0)c.innerHTML=stepArrival();
+  else if(wStep===1)c.innerHTML=stepDuties();
+  else if(wStep===2)c.innerHTML=stepForm();
+  else c.innerHTML=stepSuccess();
 }
 
-function confirmArrival() {
-  workerForm.arriveTime = document.getElementById('arrTime').value;
-  workerForm.filial = currentWorker.filial;
-  const lr = document.getElementById('lateReason');
-  workerForm.lateReason = lr ? lr.value : '';
-  workerStep=1; renderWorkerStep();
+function stepArrival(){
+  var late=NOW.getHours()>9||(NOW.getHours()===9&&NOW.getMinutes()>5);
+  return dots(0)
+    +'<div class="ptitle">Salom, '+curWorker.name.split(' ')[0]+'!</div>'
+    +'<div class="psub">'+TODAY+' - '+NOWT+'</div>'
+    +'<div class="card"><div class="cardtitle" style="margin-bottom:1rem"><i class="ti ti-login"></i>Kelish vaqti</div>'
+    +'<div class="fgroup"><label class="flabel">Vaqt</label><input type="time" class="finput" id="arrT" value="'+NOWT+'"></div>'
+    +(late?'<div style="background:rgba(226,75,74,.1);border:.5px solid rgba(226,75,74,.2);border-radius:10px;padding:10px 14px;font-size:13px;color:#ff8080;margin-bottom:1rem">Kech qolish sababi yozing</div>'
+      +'<div class="fgroup"><label class="flabel">Sabab</label><input class="finput" id="lateR" placeholder="Transport..."></div>':'')
+    +'</div>'
+    +'<div style="display:flex;justify-content:flex-end">'
+    +'<button class="btnacc" onclick="goStep1()">Davom <i class="ti ti-arrow-right"></i></button></div>';
 }
 
-function renderWDuties() {
-  const duties = DUTIES[currentWorker.role]||[];
-  const done = Object.values(workerDuties).filter(Boolean).length;
-  const pct = duties.length ? Math.round(done/duties.length*100) : 0;
-  return `${stepDots(1)}
-  <div class="page-title">Bugungi vazifalar</div>
-  <div class="page-sub">Bajargan vazifalarni belgilang</div>
-  <div class="prog-wrap">
-    <div class="prog-top"><span>Bajarilish</span><span id="pctLbl">${pct}%</span></div>
-    <div class="prog-bar"><div class="prog-fill" id="pf" style="width:${pct}%"></div></div>
-  </div>
-  <div class="card">
-    ${duties.map((d,i)=>`
-    <div class="duty-item" id="di${i}">
-      <div class="chk ${workerDuties[i]?'done':''}" onclick="tDuty(${i})">${workerDuties[i]?'<i class="ti ti-check"></i>':''}</div>
-      <div style="flex:1">
-        <div class="duty-name ${workerDuties[i]?'done':''}">${d.n}</div>
-        <div class="duty-time">${d.t} · <span class="badge ${d.p}" style="font-size:10px">${d.p==='b-red'?'Shoshilinch':d.p==='b-amber'?'Bugun':'Reja'}</span></div>
-      </div>
-    </div>`).join('')}
-  </div>
-  <div style="display:flex;justify-content:space-between">
-    <button class="btn-sm" onclick="workerStep=0;renderWorkerStep()"><i class="ti ti-arrow-left"></i> Orqaga</button>
-    <button class="btn-accent" onclick="workerStep=2;renderWorkerStep()">Hisobot <i class="ti ti-arrow-right"></i></button>
-  </div>`;
+function goStep1(){
+  wForm.arr=document.getElementById('arrT').value;
+  wForm.filial=curWorker.filial;
+  var lr=document.getElementById('lateR');
+  wForm.late=lr?lr.value:'';
+  wStep=1;renderWorker();
 }
 
-function tDuty(i) {
-  workerDuties[i]=!workerDuties[i];
-  const chk=document.querySelector(`#di${i} .chk`), nm=document.querySelector(`#di${i} .duty-name`);
-  if(chk){chk.classList.toggle('done',workerDuties[i]);chk.innerHTML=workerDuties[i]?'<i class="ti ti-check"></i>':'';}
-  if(nm) nm.classList.toggle('done',workerDuties[i]);
-  const done=Object.values(workerDuties).filter(Boolean).length;
-  const total=DUTIES[currentWorker.role]?.length||1;
-  const pct=Math.round(done/total*100);
-  const pf=document.getElementById('pf'), pl=document.getElementById('pctLbl');
-  if(pf)pf.style.width=pct+'%'; if(pl)pl.textContent=pct+'%';
+function stepDuties(){
+  var duties=DUTIES[curWorker.role]||[];
+  var done=0;for(var k in wDuties)if(wDuties[k])done++;
+  var pct=duties.length?Math.round(done/duties.length*100):0;
+  var items=duties.map(function(d,i){
+    var parts=d.split('|');
+    return '<div class="dutyitem" id="di'+i+'">'
+      +'<div class="chk'+(wDuties[i]?' done':'')+'" onclick="tDuty('+i+')">'+(wDuties[i]?'<i class="ti ti-check"></i>':'')+'</div>'
+      +'<div style="flex:1"><div class="dname'+(wDuties[i]?' done':'')+'">'+parts[0]+'</div>'
+      +'<div class="dtime">'+parts[1]+'</div></div></div>';
+  }).join('');
+  return dots(1)+'<div class="ptitle">Bugungi vazifalar</div>'
+    +'<div class="progwrap"><div class="progtop"><span>Bajarilish</span><span id="pct">'+pct+'%</span></div>'
+    +'<div class="progbar"><div class="progfill" id="pf" style="width:'+pct+'%"></div></div></div>'
+    +'<div class="card">'+items+'</div>'
+    +'<div style="display:flex;justify-content:space-between">'
+    +'<button class="btnsm" onclick="wStep=0;renderWorker()"><i class="ti ti-arrow-left"></i> Orqaga</button>'
+    +'<button class="btnacc" onclick="wStep=2;renderWorker()">Hisobot <i class="ti ti-arrow-right"></i></button></div>';
 }
 
-function renderWForm() {
-  const fields = EXTRA_FIELDS[currentWorker.role]||[];
-  return `${stepDots(2)}
-  <div class="page-title">Kunlik hisobot</div>
-  <div class="page-sub">Smena natijalarini kiriting</div>
-  <div class="card">
-    ${fields.map(f=>`
-    <div class="form-group">
-      <label class="form-label">${f.label}</label>
-      ${f.ta
-        ? `<textarea class="form-textarea" id="ff_${f.id}" placeholder="${f.ph}"></textarea>`
-        : `<input type="text" class="form-input" id="ff_${f.id}" placeholder="${f.ph}">`
-      }
-    </div>`).join('')}
-  </div>
-  <div class="card">
-    <div class="card-title"><i class="ti ti-star"></i>Smena bahosi</div>
-    <div class="rating-row">
-      <button class="rating-btn" id="rb1" onclick="setRating(1)">😞 Yomon</button>
-      <button class="rating-btn" id="rb2" onclick="setRating(2)">😐 O'rtacha</button>
-      <button class="rating-btn" id="rb3" onclick="setRating(3)">😊 Yaxshi</button>
-      <button class="rating-btn" id="rb4" onclick="setRating(4)">🔥 A'lo</button>
-    </div>
-  </div>
-  <div style="display:flex;justify-content:space-between">
-    <button class="btn-sm" onclick="workerStep=1;renderWorkerStep()"><i class="ti ti-arrow-left"></i> Orqaga</button>
-    <button class="btn-accent" onclick="submitReport()"><i class="ti ti-send"></i> Yuborish</button>
-  </div>`;
+function tDuty(i){
+  wDuties[i]=!wDuties[i];
+  var chk=document.querySelector('#di'+i+' .chk');
+  var nm=document.querySelector('#di'+i+' .dname');
+  if(chk){chk.className='chk'+(wDuties[i]?' done':'');chk.innerHTML=wDuties[i]?'<i class="ti ti-check"></i>':'';}
+  if(nm)nm.className='dname'+(wDuties[i]?' done':'');
+  var done=0;var total=(DUTIES[curWorker.role]||[]).length;
+  for(var k in wDuties)if(wDuties[k])done++;
+  var pct=total?Math.round(done/total*100):0;
+  var pf=document.getElementById('pf');var pt=document.getElementById('pct');
+  if(pf)pf.style.width=pct+'%';if(pt)pt.textContent=pct+'%';
 }
 
-function setRating(v) {
-  workerRating=v;
-  [1,2,3,4].forEach(i=>{const b=document.getElementById('rb'+i);if(b)b.classList.toggle('active',i===v);});
+function stepForm(){
+  var fields=EXTRA[curWorker.role]||[];
+  var fhtml=fields.map(function(f){
+    return '<div class="fgroup"><label class="flabel">'+f[1]+'</label>'
+      +(f[3]?'<textarea class="fta" id="ef_'+f[0]+'" placeholder="'+f[2]+'"></textarea>'
+        :'<input class="finput" id="ef_'+f[0]+'" placeholder="'+f[2]+'">')+'</div>';
+  }).join('');
+  return dots(2)+'<div class="ptitle">Kunlik hisobot</div>'
+    +'<div class="card">'+fhtml+'</div>'
+    +'<div class="card"><div class="cardtitle" style="margin-bottom:.75rem"><i class="ti ti-star"></i>Smena bahosi</div>'
+    +'<div class="ratingrow">'
+    +'<button class="rbtn" id="rb1" onclick="setR(1)">Yomon</button>'
+    +'<button class="rbtn" id="rb2" onclick="setR(2)">Ortacha</button>'
+    +'<button class="rbtn" id="rb3" onclick="setR(3)">Yaxshi</button>'
+    +'<button class="rbtn" id="rb4" onclick="setR(4)">Alo</button>'
+    +'</div></div>'
+    +'<div style="display:flex;justify-content:space-between">'
+    +'<button class="btnsm" onclick="wStep=1;renderWorker()"><i class="ti ti-arrow-left"></i> Orqaga</button>'
+    +'<button class="btnacc" onclick="submitW()"><i class="ti ti-send"></i> Yuborish</button></div>';
 }
 
-function submitReport() {
-  const fields = EXTRA_FIELDS[currentWorker.role]||[];
-  fields.forEach(f=>{const el=document.getElementById('ff_'+f.id);if(el)workerForm[f.id]=el.value;});
+function setR(v){
+  wRating=v;
+  for(var i=1;i<=4;i++){var b=document.getElementById('rb'+i);if(b)b.className='rbtn'+(i===v?' active':'');}
+}
 
-  const duties = DUTIES[currentWorker.role]||[];
-  const dutyDone = Object.values(workerDuties).filter(Boolean).length;
-  const dutyPct  = duties.length ? Math.round(dutyDone/duties.length*100) : 0;
-
-  const extras = fields.filter(f=>workerForm[f.id]&&workerForm[f.id].toString().trim())
-    .map(f=>({label:f.label, value:workerForm[f.id]}));
-
-  const report = {
-    id: 'r'+Date.now(),
-    workerId: currentWorker.id,
-    workerName: currentWorker.name,
-    role: currentWorker.role,
-    filial: currentWorker.filial,
-    date: DATE,
-    time: TIME,
-    arriveTime: workerForm.arriveTime||TIME,
-    lateReason: workerForm.lateReason||'',
-    duties: duties.map((d,i)=>({n:d.n, done:!!workerDuties[i]})),
-    dutyDone, dutyTotal:duties.length, dutyPct,
-    extras,
-    rating: workerRating,
-    status: 'pending'
+function submitW(){
+  var fields=EXTRA[curWorker.role]||[];
+  var extras=[];
+  fields.forEach(function(f){
+    var el=document.getElementById('ef_'+f[0]);
+    if(el&&el.value.trim())extras.push({l:f[1],v:el.value.trim()});
+  });
+  var duties=DUTIES[curWorker.role]||[];
+  var done=0;for(var k in wDuties)if(wDuties[k])done++;
+  var pct=duties.length?Math.round(done/duties.length*100):0;
+  var re=['','Yomon','Ortacha','Yaxshi','Alo'];
+  var report={
+    id:'r'+Date.now(),
+    workerId:curWorker.id,
+    workerName:curWorker.name,
+    role:curWorker.role,
+    filial:curWorker.filial,
+    date:TODAY,time:NOWT,
+    arriveTime:wForm.arr||NOWT,
+    lateReason:wForm.late||'',
+    duties:duties.map(function(d,i){return {n:d.split('|')[0],done:!!wDuties[i]};}),
+    dutyDone:done,dutyTotal:duties.length,dutyPct:pct,
+    extras:extras,rating:wRating,status:'pending'
   };
+  var d=loadData();d.reports.push(report);saveData(d);
 
-  const d = loadData();
-  d.reports.push(report);
-  saveData(d);
+  // Telegram SMS
+  var msg='📋 YANGI HISOBOT\n━━━━━━━━━━━━━━━\n'
+    +'👤 '+report.workerName+'\n'
+    +'💼 '+(RLABELS[report.role]||report.role)+' | '+report.filial+'\n'
+    +'📅 '+TODAY+' · '+NOWT+'\n'
+    +'⏰ Kelish: '+report.arriveTime+'\n';
+  if(report.lateReason)msg+='⚠️ Sabab: '+report.lateReason+'\n';
+  msg+='\n✅ Vazifalar: '+done+'/'+duties.length+' ('+pct+'%)\n';
+  report.duties.filter(function(x){return x.done;}).forEach(function(x){msg+='  ✔ '+x.n+'\n';});
+  var notd=report.duties.filter(function(x){return !x.done;});
+  if(notd.length){msg+='\n❌ Bajarilmagan:\n';notd.forEach(function(x){msg+='  ✘ '+x.n+'\n';});}
+  if(extras.length){msg+='\n📊 Natijalar:\n';extras.forEach(function(e){msg+='  • '+e.l+': '+e.v+'\n';});}
+  if(wRating)msg+='\nSmena: '+re[wRating]+'\n';
+  msg+='━━━━━━━━━━━━━━━\n🤖 Ottimo Tizim';
+  sendTG(msg);
 
-  workerStep=3; renderWorkerStep();
+  wStep=3;renderWorker();
 }
 
-function renderWSuccess() {
-  const ratingEmoji = ['','😞','😐','😊','🔥'];
-  const ratingText  = ['','Yomon',"O'rtacha",'Yaxshi',"A'lo"];
-  return `${stepDots(3)}
-  <div class="success-box">
-    <div class="success-icon"><i class="ti ti-circle-check"></i></div>
-    <div class="page-title">Hisobot yuborildi!</div>
-    <div style="font-size:14px;color:var(--text2);margin:.75rem 0 1.5rem;line-height:1.6">Rahbaringiz ko'rib chiqib tasdiqlaydi.<br>Yaxshi ish, ${currentWorker.name.split(' ')[0]}! 👏</div>
-  </div>
-  <div class="card">
-    <div class="card-title"><i class="ti ti-list-check"></i>Xulosa</div>
-    <div style="display:flex;flex-direction:column;gap:6px">
-      <div style="display:flex;justify-content:space-between;font-size:13px;padding:6px 0;border-bottom:.5px solid var(--border)"><span style="color:var(--text3)">Ism</span><span>${currentWorker.name}</span></div>
-      <div style="display:flex;justify-content:space-between;font-size:13px;padding:6px 0;border-bottom:.5px solid var(--border)"><span style="color:var(--text3)">Filial</span><span>${currentWorker.filial}</span></div>
-      <div style="display:flex;justify-content:space-between;font-size:13px;padding:6px 0;border-bottom:.5px solid var(--border)"><span style="color:var(--text3)">Kelish</span><span>${workerForm.arriveTime}</span></div>
-      <div style="display:flex;justify-content:space-between;font-size:13px;padding:6px 0;border-bottom:.5px solid var(--border)"><span style="color:var(--text3)">Vazifalar</span><span>${Object.values(workerDuties).filter(Boolean).length}/${DUTIES[currentWorker.role]?.length||0}</span></div>
-      ${workerRating?`<div style="display:flex;justify-content:space-between;font-size:13px;padding:6px 0"><span style="color:var(--text3)">Smena</span><span>${ratingEmoji[workerRating]} ${ratingText[workerRating]}</span></div>`:''}
-    </div>
-  </div>
-  <div style="text-align:center;margin-top:1rem">
-    <button class="btn-sm" onclick="logout()"><i class="ti ti-home"></i> Chiqish</button>
-  </div>`;
+function stepSuccess(){
+  return '<div class="successbox">'
+    +'<div class="successicon"><i class="ti ti-circle-check"></i></div>'
+    +'<div class="ptitle">Hisobot yuborildi!</div>'
+    +'<div style="font-size:14px;color:rgba(240,239,248,.5);margin:.75rem 0 1.5rem;line-height:1.6">Rahbaringiz korib chiqib tasdiqlaydi.<br>Yaxshi ish, '+curWorker.name.split(' ')[0]+'!</div>'
+    +'</div>'
+    +'<div style="text-align:center"><button class="btnsm" onclick="logout()"><i class="ti ti-home"></i> Chiqish</button></div>';
 }
 
-// ══════════════════════════════
-// MODAL
-// ══════════════════════════════
-function openModal(html) {
-  document.getElementById('modalContent').innerHTML = html;
-  document.getElementById('modalOverlay').classList.add('active');
-}
-function closeModal(e) {
-  if(!e || e.target===document.getElementById('modalOverlay')) {
-    document.getElementById('modalOverlay').classList.remove('active');
-  }
-}
+/* ── MODAL ── */
+function openMod(html){document.getElementById('mcontent').innerHTML=html;document.getElementById('moverlay').className='moverlay active';}
+function closeMod(){document.getElementById('moverlay').className='moverlay';}
 </script>
 </body>
 </html>
